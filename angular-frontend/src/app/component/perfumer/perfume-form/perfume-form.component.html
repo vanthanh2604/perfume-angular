@@ -1,0 +1,119 @@
+<div class="container-fluid">
+    <div class="card min-heigh" style="width: 80%; margin:0 auto">
+        <div class="card-header text-center">
+            <h4 *ngIf="idPerfume==undefined" class="text-center">Thêm mới sản phẩm</h4>
+            <h4 *ngIf="idPerfume!=undefined" class="text-center">Cập nhật sản phẩm</h4>
+        </div>
+        <!-- <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> 
+            <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div> -->
+        <div class="card-body">
+            <form [formGroup]="infoform" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="code">Mã sản phẩm <i class="note">*</i></label>
+                            <input *ngIf="idPerfume==undefined" formControlName="perfume_code" id="code"
+                                class="form-control" placeholder="Nhập mã sản phẩm" type="text" name="perfume_code">
+                            <input *ngIf="idPerfume!=undefined" [value]="perfume.perfume_code" id="code"
+                                class="form-control" placeholder="Nhập mã sản phẩm" type="text" name="perfume_code"
+                                disabled>
+                            <div class="text-danger" *ngFor="let validation of validation_messages.perfume_code">
+                                <div class="error-message mes-size"
+                                    *ngIf="infoform.controls['perfume_code'].hasError(validation.type) && (infoform.controls['perfume_code'].dirty || infoform.controls['perfume_code'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="name">Tên sản phẩm <i class="note">*</i></label>
+                            <input formControlName="perfume_name" id="perfume_name" class="form-control"
+                                placeholder="Nhập tên sản phẩm" type="text" name="perfume_name">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.perfume_name">
+                                <div class="error-message mes-size"
+                                    *ngIf="infoform.controls['perfume_name'].hasError(validation.type) && (infoform.controls['perfume_name'].dirty || infoform.controls['perfume_name'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="price">Giá <i class="note">*</i></label>
+                            <input formControlName="price" id="price" class="form-control"
+                                placeholder="Nhập giá sản phẩm" type="text" name="price" (input)="formatInput($any($event).target)">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.price">
+                                <div class="error-message mes-size"
+                                    *ngIf="infoform.controls['price'].hasError(validation.type) && (infoform.controls['price'].dirty || infoform.controls['price'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="amount">Số lượng <i class="note">*</i></label>
+                            <input formControlName="amount" id="amount" class="form-control" placeholder="Nhập số lượng"
+                                type="text" name="amount"(input)="formatInput($any($event).target)">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.amount">
+                                <div class="error-message mes-size"
+                                    *ngIf="infoform.controls['amount'].hasError(validation.type) && (infoform.controls['amount'].dirty || infoform.controls['amount'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                            <div class="text-danger" *ngFor="let validation of validation_messages.amount">
+                                <div class="error-message mes-size">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="description">Mô tả<i class="note"> *</i></label>
+                            <!-- <input formControlName="description" id="description" class="form-control"
+                                placeholder="Nhập mô tả sản phẩm" type="text" name="description" required> -->
+                            <textarea formControlName="description" class="form-control" rows="4" cols="50"
+                                name="comment">
+                                    Enter text here...</textarea>
+                            <div class="text-danger" *ngFor="let validation of validation_messages.description">
+                                <div class="error-message mes-size"
+                                    *ngIf="infoform.controls['description'].hasError(validation.type) && (infoform.controls['description'].dirty || infoform.controls['description'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <label for="brand">Thương hiệu <i class="note">*</i></label>
+                        <select *ngIf="idPerfume!=undefined" id="brandId" name="brandId" formControlName="brandId"
+                            class="form-control">
+                            <option *ngFor="let item of brands" [value]="item.id">{{item.brand_name}}</option>
+                        </select>
+                        <select *ngIf="idPerfume==undefined" id="brandId" name="brandId" formControlName="brandId"
+                            class="form-control">
+                            <option value="">---Vui lòng chọn---</option>
+                            <option *ngFor="let item of brands" [value]="item.id">{{item.brand_name}}</option>
+                        </select>
+                        <div class="text-danger" *ngFor="let validation of validation_messages.brandId">
+                            <div class="error-message mes-size"
+                                *ngIf="infoform.controls['brandId'].hasError(validation.type) && (infoform.controls['brandId'].dirty || infoform.controls['brandId'].touched)">
+                                {{validation.message}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-right">
+                    <button *ngIf="idPerfume==undefined" class="btn btn-success ml-2" type="submit">Lưu</button>
+                    <button *ngIf="idPerfume!=undefined" class="btn btn-success ml-2" [disabled]="!infoform.valid"
+                        type="submit">Cập nhật</button>
+                    <button type="button" class="btn btn-danger ml-2" routerLink="/perfumes">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

@@ -1,0 +1,143 @@
+<div class="container-fluid">
+    <div class="card min-heigh" style=" margin:0 auto">
+        <div class="card-header text-center">
+            <h4 class="text-center">Tạo đơn xuất hàng</h4>
+        </div>
+        <div class="card-body">
+            <h6>Thông tin khách hàng</h6>
+            <form [formGroup]="formCustomer">
+                <div class="form-row border border-primary">
+                    <div class="col-md-4 mb-1">
+                        <div class="form-group">
+                            <label for="customerName">Tên khách hàng <i class="note">*</i></label>
+                            <input type="text" id="customerName" name="customerName" class="form-control"
+                                formControlName="customerName">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.customerName">
+                                <div class="error-message mes-size"
+                                    *ngIf="formCustomer.controls['customerName'].hasError(validation.type) && (formCustomer.controls['customerName'].dirty || formCustomer.controls['customerName'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-1">
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại</label>
+                            <input type="text" id="phone" name="phone" class="form-control" formControlName="phone">
+
+                            <div class="text-danger" *ngFor="let validation of validation_messages.phone">
+                                <div class="error-message mes-size"
+                                    *ngIf="formCustomer.controls['phone'].hasError(validation.type) && (formCustomer.controls['phone'].dirty || formCustomer.controls['phone'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-1">
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" id="address" name="address" class="form-control"
+                                formControlName="address">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.address">
+                                <div class="error-message mes-size"
+                                    *ngIf="formCustomer.controls['address'].hasError(validation.type) && (formCustomer.controls['address'].dirty || formCustomer.controls['address'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <hr>
+            <h6>Chi tiết đơn hàng</h6>
+            <hr>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-row">
+                    <div class="col-md-3 mb-1">
+                        <div class="form-group">
+                            <label for="code">Mã sản phẩm</label>
+                            <select class="form-select form-control" id="perfume_code" name="perfume_code" (change)="selected()" formControlName="perfume_code">
+                                <option value="" selected>---Vui lòng chọn---</option>
+                                <option *ngFor="let item of perfumes" [value]="item.perfume_code">{{item.perfume_code}}
+                                </option>
+                            </select>
+                            <!-- {{perfume.perfume_code}} -->
+                            <div class="text-danger" *ngFor="let validation of validation_messages.perfume_code">
+                                <div class="error-message mes-size"
+                                    *ngIf="form.controls['perfume_code'].hasError(validation.type) && (form.controls['perfume_code'].dirty || form.controls['perfume_code'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-1">
+                        <div class="form-group">
+                            <label for="price">Đơn giá (VND)</label>
+                            <input formControlName="price" id="price" class="form-control"
+                                placeholder="Nhập giá sản phẩm" type="number" name="price"
+                                (input)="formatInput($any($event).target)">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.price">
+                                <div class="error-message mes-size"
+                                    *ngIf="form.controls['price'].hasError(validation.type) && (form.controls['price'].dirty || form.controls['price'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-1">
+                        <div class="form-group">
+                            <label for="amount">Số lượng</label>
+                            <input formControlName="amount" id="amount" class="form-control" placeholder="Nhập số lượng"
+                                type="number" name="amount" (input)="formatInput($any($event).target)">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.amount">
+                                <div class="error-message mes-size"
+                                    *ngIf="form.controls['amount'].hasError(validation.type) && (form.controls['amount'].dirty || form.controls['amount'].touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-1">
+                        <label></label>
+                        <div class="form-group">
+                            <button class="btn btn-success ml-2" style="margin-top: 8px;" type="submit">Thêm</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <table class="table table-sm table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Mã sản phẩm</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col" class="text-right price-right">Giá nhập</th>
+                        <th scope="col" class="text-right price-right">Thành tiền (VND)</th>
+                        <th scope="col">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of inputDto">
+                        <th scope="row"></th>
+                        <td>{{item.perfume_code}}</td>
+                        <td>{{item.perfume_name }}</td>
+                        <td>{{item.amount}}</td>
+                        <td class="text-right price-right">{{item.price}}</td>
+                        <td class="text-right price-right">{{item.amount*item.price|number:'1.0-0'}}</td>
+                        <td><button class="btn btn-danger ml-2" (click)="deletePerfume(item)"><i class="fa fa-trash">
+                                    Xóa</i></button></td>
+                    </tr>
+                    <tr>
+                        <th class="text-right" colspan="5">Tổng tiền</th>
+                        <td class="text-right price-right">{{total|number:'1.0-0'}}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="form-group text-right">
+                <button (click)="createOutput()" class="btn btn-success ml-2" type="submit">Tạo</button>
+                <button type="button" class="btn btn-danger ml-2" routerLink="/input">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- {{inputDto|json}}
+{{supliers|json}} -->
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

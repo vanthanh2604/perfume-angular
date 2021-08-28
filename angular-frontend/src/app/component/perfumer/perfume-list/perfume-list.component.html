@@ -1,0 +1,112 @@
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
+<h1 class="h3 mb-2 text-gray-800">Quản lý sản phẩm</h1>
+<p></p>
+
+<div class="row">
+
+    <div class="form-group col-md-5">
+        <form>
+            <input (input)="searchPerfumes(key.value)" #key="ngModel" ngModel name="key" id="exampleFormControlInput5"
+                type="search" placeholder="Nhập từ khóa cần tìm kiếm" class="form-control form-control-underlined">
+        </form>
+    </div>
+
+    <div class="col-md-7 mx-right text-right">
+        <button class="btn btn-success" routerLink="/create">+ Thêm mới</button>
+    </div>
+</div>
+
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="col-sm-12 col-md-12">
+                <table class="table table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Thương hiệu</th>
+                            <th>Số lượng</th>
+                            <th class="text-center">Giá (VND)</th>
+                            <th class="text-center">Mô tả</th>
+                            <th class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let perfume of perfumes | slice: (page-1) * pageSize : page * pageSize
+                                        ;let i=index">
+                            <td>{{((page-1)*pageSize)+i+1}}</td>
+                            <td (click)="detailPerfume(perfume.id)">{{perfume.perfume_code}}</td>
+                            <td (click)="detailPerfume(perfume.id)" tooltip="{{perfume.perfume_name}}">
+                                {{perfume.perfume_name}}</td>
+                            <td>{{perfume.brand.brand_name}}</td>
+                            <td class="text-center">{{perfume.amount}}</td>
+                            <td class="text-right">{{perfume.price | number:'1.0-0'}}</td>
+                            <td>
+                                <div class="text-overflow" tooltip="{{perfume.description}}">{{perfume.description}}
+                                </div>
+                            </td>
+
+                            <td class="text-center font-size">
+                                <a class="btn btn-info btn-circle" (click)="detailPerfume(perfume.id)"><i
+                                        class="fas fa-info-circle"></i></a>
+                                <a class="btn btn-warning btn-circle" (click)="editPerfume(perfume.id)"><i
+                                        class="fas fa-exclamation-triangle"></i></a>
+                                <a class="btn btn-danger btn-circle" (click)="deletePerfume(perfume.id)"><i
+                                        class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-center" *ngIf="perfumes?.length==0">Không tìm thấy kết quả</p>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="chang($event)">
+                    <option [ngValue]="6">6 sản phẩm</option>
+                    <option [ngValue]="8">8 sản phẩm</option>
+                    <option [ngValue]="10">10 sản phẩm</option>
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-4 text-right">
+                <label *ngIf="page==1&&(page*pageSize)<collectionSize">Hiển thị: 1 - {{page*pageSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+                <label *ngIf="page!=1&&(page*pageSize)<collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
+                    {{page*pageSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+                <label *ngIf="page!=1&&(page*pageSize)>collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
+                    {{collectionSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+                <label *ngIf="page==1&&(page*pageSize)>collectionSize">Hiển thị: 1 - {{collectionSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+            </div>
+            <div class="col-sm-12 col-md-4 float-right">
+                <div class="dataTables_paginate paging_simple_numbers float-right" style="padding: 0;">
+                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize"
+                        [boundaryLinks]="true">
+                        <ng-template ngbPaginationPages let-page let-pages="pages">
+                            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                                <div class="form-group d-flex flex-nowrap px-2">
+                                    <label id="paginationInputLabel" for="paginationInput"
+                                        class="col-form-label mr-2 ml-1">Trang</label>
+                                    <input #i type="text" inputmode="numeric" pattern="[0-9]*"
+                                        class="form-control custom-pages-input" id="paginationInput" [value]="page"
+                                        (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                                        (input)="formatInput($any($event).target)"
+                                        aria-labelledby="paginationInputLabel paginationDescription"
+                                        style="width: 2.5rem" />
+                                    <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                        / {{pages.length}}</span>
+                                </div>
+                            </li>
+                        </ng-template>
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

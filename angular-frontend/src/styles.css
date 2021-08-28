@@ -1,0 +1,12 @@
+.bg-primary{
+    background-color: #a57660 !important;
+}
+.error-message{
+    color: #ff0000;
+  }
+  .color-text{
+    color: #ffffff;
+  }
+  .min-heigh{
+      min-height: 570px;
+  }

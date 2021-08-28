@@ -1,0 +1,140 @@
+<h1 class="h3 mb-2 text-gray-800">Quản lý kho</h1>
+<div class="card shadow mb-4">
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <form>
+                    <input type="search" id="exampleFormControlInput5" (ngModelChange)="search(key.value)"
+                        #key="ngModel" name="key" ngModel placeholder="Nhập từ khóa cần tìm kiếm"
+                        class="form-control form-control-underlined">
+
+                    <!-- <div class="form-group col-md-3">
+                                <i><button type="submit" class="btn btn-primary rounded-pill btn-block shadow-sm">Tìm
+                                        kiếm</button></i>
+                            </div> -->
+                </form>
+            </div>
+            <div class="col-sm-12 col-md-8 text-right">
+                <div class="row">
+                    <div class="col-sm-12 col-md-7"></div>
+                    <div class="col-sm-12 col-md-3 ">
+                        <button routerLink='/input-create' class="btn btn-success">Nhập kho</button>
+                    </div>
+                    <div class="col-sm-12 col-md-2">
+                        <button routerLink='/output-create' class="btn btn-success">Xuất kho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p></p>
+        <div class="table-responsive">
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" (navChange)="onNavChange($event)" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>Danh sách nhập kho</a>
+                    <ng-template ngbNavContent>
+                        <table class="table table-hover table-sm table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nhà cung cấp</th>
+                                    <th scope="col">Ngày nhập</th>
+                                    <th scope="col" class="price-right text-right">Tổng tiền (VND)</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let input of inputs| slice: (page-1) * pageSize : page * pageSize;index as i">
+                                    <th scope="row">{{((page-1)*pageSize)+i+1}}</th>
+                                    <td (click)="detailInput(input.id)">{{input.suplier.suplierName}}</td>
+                                    <td>{{input.dateInput | date:'dd-MM-yyyy'}}</td>
+                                    <td class="text-right price-right">{{input.total|number:'1.0-0'}}</td>
+                                    <td>
+                                        <button (click)="detailInput(input.id)" class="btn btn-primary ml-2"><i
+                                                class="fa fa-eye"> chi tiết</i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink>Danh sách xuất kho</a>
+                    <ng-template ngbNavContent>
+                        <table class="table table-sm table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tên khách hàng</th>
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Địa chỉ</th>
+                                    <th scope="col">Ngày xuất</th>
+                                    <th scope="col">Tông tiền (VND)</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let output of outputs| slice: (page-1) * pageSize : page * pageSize; index as i">
+                                    <th scope="row">{{((page-1)*pageSize)+i+1}}</th>
+                                    <td>{{output.customerName}}</td>
+                                    <td>{{output.phone}}</td>
+                                    <td>{{output.address}}</td>
+                                    <td>{{output.dateOutput|date:"dd-MM-yyyy"}}</td>
+                                    <td class="text-right">{{output.total|number:'1.0-0'}}</td>
+                                    <td><button (click)="detailOutput(output.id)" class="btn btn-primary ml-2"><i
+                                                class="fa fa-eye"> chi tiết</i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ng-template>
+                </li>
+            </ul>
+        
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="chang($event)">
+                    <option [ngValue]="6">6 sản phẩm</option>
+                    <option [ngValue]="8">8 sản phẩm</option>
+                    <option [ngValue]="10">10 sản phẩm</option>
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-4 text-right">
+                <label *ngIf="page==1&&(page*pageSize)<collectionSize">Hiển thị: 1 - {{page*pageSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+                <label *ngIf="page!=1&&(page*pageSize)<collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
+                    {{page*pageSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+                <label *ngIf="page!=1&&(page*pageSize)>collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
+                    {{collectionSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+                <label *ngIf="page==1&&(page*pageSize)>collectionSize">Hiển thị: 1 - {{collectionSize}} trên
+                    {{collectionSize}} sản phẩm</label>
+            </div>
+            <div class="col-sm-12 col-md-4 float-right">
+                <div class="dataTables_paginate paging_simple_numbers float-right" style="padding: 0;">
+                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize"
+                        [boundaryLinks]="true">
+                        <ng-template ngbPaginationPages let-page let-pages="pages">
+                            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                                <div class="form-group d-flex flex-nowrap px-2">
+                                    <label id="paginationInputLabel" for="paginationInput"
+                                        class="col-form-label mr-2 ml-1">Trang</label>
+                                    <input #i type="text" inputmode="numeric" pattern="[0-9]*"
+                                        class="form-control custom-pages-input" id="paginationInput" [value]="page"
+                                        (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                                        (input)="formatInput($any($event).target)"
+                                        aria-labelledby="paginationInputLabel paginationDescription"
+                                        style="width: 2.5rem" />
+                                    <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                        / {{pages.length}}</span>
+                                </div>
+                            </li>
+                        </ng-template>
+                    </ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

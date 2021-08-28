@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="card min-heigh" style="width: 60%; margin:0 auto">
+        <div class="card-header" >
+            <h4 class="text-center">Chi tiết sản phẩm</h4>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="perfume_code">Mã sản phẩm:</label>
+                            <input id="perfume_code" class="form-control"  type="text" value="{{perfume.perfume_code}}" name="perfume_code" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="name">Tên sản phẩm:</label>
+                            <input id="perfume_name" class="form-control" type="text" value="{{perfume.perfume_name}}" name="name" disabled>
+                        </div>  
+                    </div>   
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="price">Giá:</label>
+                            <input id="price" class="form-control"  type="text" value="{{perfume.price}}" name="price" disabled> 
+                        </div>
+                        </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="amount">Số lượng:</label>
+                            <input id="amount" class="form-control" type="number" value="{{perfume.amount}}" name="amount" disabled> 
+                        </div>
+                    </div> 
+                </div>
+                    
+                <div class="form-row">
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="description">Ngày nhập:</label>
+                            <input id="description" class="form-control"type="text"value="{{perfume.ngayNhap | date:'dd-MM-yyyy'}}" name="description" disabled> 
+                        </div>  
+                    </div>
+                    <div class="col-md-6 mb-1">
+                        <div class="form-group">
+                            <label for="brand">Thương hiệu:</label>
+                            <input id="brand" class="form-control" type="text" value="{{perfume.brand.brand_name}}" name="description" disabled> 
+                        </div>  
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-12 mb-1">
+                        <div class="form-group">
+                            <label for="description">Mô tả:</label>
+                            <textarea id="description" class="form-control"type="text"value="{{perfume.description}}" name="description" rows="4" cols="50" disabled> </textarea>
+                        </div>  
+                    </div>
+                    
+                </div>
+                <div class="form-group float-right">
+                    <button type="button" class="btn btn-primary" routerLink="/perfumes">Quay lại</button>
+                </div>
+                
+            </form>  
+        </div>
+    </div>
+</div>
