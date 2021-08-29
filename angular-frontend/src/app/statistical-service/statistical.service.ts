@@ -17,4 +17,8 @@ export class StatisticalService {
   getStatisticalMonth(): Observable<any>{
     return this.http.get<any>(this.baseUrl+'statistical/month');
   }
+
+  getInventoryStatistics(): Observable<any>{
+    return this.http.get<any>(this.baseUrl+'statistical/inventory');
+  }
 }

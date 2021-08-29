@@ -17,9 +17,7 @@ public class Output {
     private long id;
     @NotBlank(message = "Tên khách hàng không được để trống")
     private String customerName;
-    @NotBlank(message = "Số điện thoại không được để trống")
     private String phone;
-    @NotBlank(message = "Địa chỉ không được để trống")
     private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOutput;

@@ -34,9 +34,9 @@ public class OutController {
         Output op=outputService.getById(id);
         if(op==null){
             map.put("msg","Lỗi");
-            map.put("status", false);
+            map.put("status", 500);
         }else{map.put("result",op);
-            map.put("status",true);
+            map.put("status",200);
         }return map;
     }
 
@@ -45,7 +45,7 @@ public class OutController {
         Map<String,Object>map=new HashMap<>();
         List<OutputInfo> ops= outputInfoService.get_ALl_OutputInfo_by_idInput(id);
         map.put("result",ops);
-        map.put("status",true);
+        map.put("status",200);
         return map;
     }
 
@@ -53,7 +53,7 @@ public class OutController {
     public Map<String, Object>createOutput(@RequestBody Output output){
         Map<String, Object>map=new HashMap<>();
         Output out=outputService.createOutput(output);
-        map.put("status",true);
+        map.put("status",200);
         map.put("output",out);
         return map;
     }
@@ -64,7 +64,7 @@ public class OutController {
         Output output= outputService.getById(idOp);
         //=====Thêm sản phẩm vào outputInfo============
         outputInfoService.addOutputInfo(infoDto,output);
-        map.put("status",true);
+        map.put("status",200);
         return map;
     }
 }

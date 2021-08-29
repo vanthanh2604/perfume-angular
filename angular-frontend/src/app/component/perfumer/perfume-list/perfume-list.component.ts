@@ -40,7 +40,6 @@ export class PerfumeListComponent implements OnInit {
     })
 
   }
-  //=============Tìm kiếm===========
   //=============SearchBE===========
   SearchPerfume() {
     this.perfumeService.search(this.searchPerfume.value.namePerfume).subscribe((data: Perfume[]) => {

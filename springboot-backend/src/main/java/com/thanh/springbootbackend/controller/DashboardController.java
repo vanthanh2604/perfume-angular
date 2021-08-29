@@ -31,7 +31,7 @@ public class DashboardController {
             map.put("profit",profit);
             map.put("status",200);
         }catch (Exception e){
-            map.put("status",400);
+            map.put("status",500);
         }
         return map;
     }
@@ -44,7 +44,7 @@ public class DashboardController {
             map.put("result",total);
             map.put("status",200);
         }catch (Exception e){
-            map.put("status",400);
+            map.put("status",500);
         }
         return map;
     }

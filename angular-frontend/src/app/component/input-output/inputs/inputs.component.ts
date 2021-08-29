@@ -102,20 +102,21 @@ export class InputsComponent implements OnInit {
   detailInput(id: any) {
     this.inputService.getInputById(id).subscribe((response: any) => {
       console.log(response)
-      if (response.status == false) {
+      if (response.status == 200) {
+        this.router.navigate(['/input-detail/', id]);
+        
+      }
+      else {
         if (confirm("Không tìm thấy! Bạn có muốn load lại trang không?")) {
           this.ngOnInit();
         }
-      }
-      else {
-        this.router.navigate(['/input-detail/', id]);
       }
     })
   }
 
   detailOutput(id: any) {
     this.outputService.getInputById(id).subscribe((response: any) => {
-      if (response.status == true) {
+      if (response.status == 200) {
         this.router.navigate(['/output-detail', id]);
       } else {
         if (confirm(response.msg + " Bạn có muốn làm mới trang không?")) {

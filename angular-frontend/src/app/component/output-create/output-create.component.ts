@@ -131,7 +131,7 @@ export class OutputCreateComponent implements OnInit {
         if (this.inputDto.length != 0) {
           this.outputService.outputCreate(this.output).subscribe((response: any) => {
             this.outputService.outputInfoCreate(response.output.id, this.inputDto).subscribe((response: any) => {
-              if (response.status == true) {
+              if (response.status == 200) {
                 this.toastService.show("Thành công!", { classname: 'bg-success text-light', delay: 4500 });
                 this.ngOnInit();
                 this.inputDto = []

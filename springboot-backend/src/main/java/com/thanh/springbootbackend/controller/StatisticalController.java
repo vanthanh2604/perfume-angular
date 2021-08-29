@@ -28,4 +28,9 @@ public class StatisticalController {
     public Map<String, Object> getStatisticalMonth(){
         return statisticalService.revenue_By_Month();
     }
+
+    @GetMapping("statistical/inventory")
+    public Map<String, Object> getStatisticalInventory(){
+        return statisticalService.inventory_statistical();
+    }
 }

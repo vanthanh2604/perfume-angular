@@ -34,4 +34,8 @@ public interface OutInfoRepository extends CrudRepository<OutputInfo,Long> {
             "from output_info opi join output o on opi.output_id=o.id left join perfume per on opi.perfume_id=per.id where year(o.date_output)=year(now()) \n" +
             "group by month(o.date_output), year(o.date_output);")
     List<?> revenue_by_month ();
+
+    // Lấy tổng số lượng sản phẩm đã xuất
+    @Query(nativeQuery=true,value="select sum(amount) from output_info")
+    int sumByAmount();
 }

@@ -42,10 +42,10 @@ public class InputController {
             }
             else {
                 map.put("result", input);
-                map.put("status",true);
+                map.put("status",200);
             }
         }catch (Exception e){
-            map.put("status",false);
+            map.put("status",500);
         }
 
         return map;
@@ -76,7 +76,7 @@ public class InputController {
             map.put("result",list);
             map.put("status",200);
         } catch (Exception ex) {
-            map.put("status",400);
+            map.put("status",500);
         }
         return map;
     }

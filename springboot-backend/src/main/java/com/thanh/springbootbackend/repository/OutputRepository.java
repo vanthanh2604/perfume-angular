@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface OutputRepository extends CrudRepository<Output,Long> {
-    @Query("SELECT op FROM Output op ORDER BY op.id  DESC")
+    @Query("SELECT op FROM Output op WHERE op.deleteFlag=0 ORDER BY op.id  DESC")
     List<Output> findAllDesc();
     @Query("SELECT outp FROM Output outp WHERE outp.id=?1 and outp.deleteFlag=0")
     Output findByIdOp(Long id);
@@ -24,6 +24,6 @@ public interface OutputRepository extends CrudRepository<Output,Long> {
 // Tổng đơn bán hàng
     @Query(nativeQuery=true,value="SELECT count(id) from output")
     int countOutput();
-    // Doanh thu theo sản phẩm
+
 
 }

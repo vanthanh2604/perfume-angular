@@ -20,7 +20,8 @@ import { InputCreateComponent } from './component/input-create/input-create.comp
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { StatisticalComponent } from './component/statistical/statistical/statistical.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
-
+import { ChartsModule } from 'ng2-charts';
+import { InventoryStatisticsComponent } from './component/statistical/inventory-statistics/inventory-statistics.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     InputDetailComponent, 
     OutputDetailComponent, 
     OutputCreateComponent, 
-    InputCreateComponent, StatisticalComponent, DashboardComponent
+    InputCreateComponent, StatisticalComponent, DashboardComponent, InventoryStatisticsComponent
   ],
   imports: [
     TooltipModule,
@@ -42,7 +43,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
     FormsModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
-    NgxPaginationModule,
+    NgxPaginationModule,ChartsModule,
     RouterModule.forRoot([
       { path: 'perfumes', component: PerfumeListComponent },
       { path: 'dashboard', component: DashboardComponent },

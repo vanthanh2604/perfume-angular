@@ -77,7 +77,7 @@ public class PerfumeController {
                 map.put("status", true);
             }
         }catch (Exception e){
-            map.put("status",400);
+            map.put("status",500);
         }
 
         return map;
@@ -96,7 +96,7 @@ public class PerfumeController {
                 map.put("status", true);
             }
         }catch (Exception e){
-            map.put("status",400);
+            map.put("status",500);
         }
 
         return map;
@@ -118,7 +118,7 @@ public class PerfumeController {
                 map.put("status", true);
             }
         }catch (Exception e){
-           map.put("status",400);
+           map.put("status",500);
         }
         return  map;
     }
@@ -139,7 +139,7 @@ public class PerfumeController {
                 return map;
             }
         }catch (Exception ex){
-            map.put("status",400);
+            map.put("status",500);
         }
         return map;
     }

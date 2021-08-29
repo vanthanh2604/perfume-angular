@@ -8,4 +8,5 @@ public interface IStatisticalService {
     Map<String, Object> revenue_By_Perfume();
     //Doanh thu theo tháng
     Map<String, Object> revenue_By_Month();
+    Map<String,Object> inventory_statistical();
 }
