@@ -12,11 +12,7 @@
                             <label for="customerName">Tên khách hàng <i class="note">*</i></label>
                             <input type="text" id="customerName" name="customerName" class="form-control"
                                 formControlName="customerName">
-                            <div class="text-danger" *ngFor="let validation of validation_messages.customerName">
-                                <div class="error-message mes-size"
-                                    *ngIf="formCustomer.controls['customerName'].hasError(validation.type) && (formCustomer.controls['customerName'].dirty || formCustomer.controls['customerName'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                                <control-message field="Tên khách hàng" [control]="formCustomer.get('customerName')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-4 mb-1">
@@ -24,11 +20,7 @@
                             <label for="phone">Số điện thoại</label>
                             <input type="text" id="phone" name="phone" class="form-control" formControlName="phone">
 
-                            <div class="text-danger" *ngFor="let validation of validation_messages.phone">
-                                <div class="error-message mes-size"
-                                    *ngIf="formCustomer.controls['phone'].hasError(validation.type) && (formCustomer.controls['phone'].dirty || formCustomer.controls['phone'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                            <control-message field="Số điện thoại" [control]="formCustomer.get('phone')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-4 mb-1">
@@ -36,11 +28,7 @@
                             <label for="address">Địa chỉ</label>
                             <input type="text" id="address" name="address" class="form-control"
                                 formControlName="address">
-                            <div class="text-danger" *ngFor="let validation of validation_messages.address">
-                                <div class="error-message mes-size"
-                                    *ngIf="formCustomer.controls['address'].hasError(validation.type) && (formCustomer.controls['address'].dirty || formCustomer.controls['address'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                                <control-message field="Địa chỉ" [control]="formCustomer.get('address')"></control-message>
                         </div>
                     </div>
                 </div>
@@ -54,18 +42,13 @@
                 <div class="form-row">
                     <div class="col-md-3 mb-1">
                         <div class="form-group">
-                            <label for="code">Mã sản phẩm</label>
-                            <select class="form-select form-control" id="perfume_code" name="perfume_code" (change)="selected()" formControlName="perfume_code">
+                            <label for="code">Tên sản phẩm</label>
+                            <select class="form-select form-control" id="id" name="id" (change)="selected()" formControlName="id">
                                 <option value="" selected>---Vui lòng chọn---</option>
-                                <option *ngFor="let item of perfumes" [value]="item.perfume_code">{{item.perfume_code}}
+                                <option *ngFor="let item of perfumes" [value]="item.id">{{item.perfume_name}}
                                 </option>
                             </select>
-                            <!-- {{perfume.perfume_code}} -->
-                            <div class="text-danger" *ngFor="let validation of validation_messages.perfume_code">
-                                <div class="error-message mes-size"
-                                    *ngIf="form.controls['perfume_code'].hasError(validation.type) && (form.controls['perfume_code'].dirty || form.controls['perfume_code'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                            <control-message field="Tên sản phẩm" [control]="form.get('id')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
@@ -74,11 +57,7 @@
                             <input formControlName="price" id="price" class="form-control"
                                 placeholder="Nhập giá sản phẩm" type="number" name="price"
                                 (input)="formatInput($any($event).target)">
-                            <div class="text-danger" *ngFor="let validation of validation_messages.price">
-                                <div class="error-message mes-size"
-                                    *ngIf="form.controls['price'].hasError(validation.type) && (form.controls['price'].dirty || form.controls['price'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                                <control-message field="Giá" [control]="form.get('price')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
@@ -86,11 +65,7 @@
                             <label for="amount">Số lượng</label>
                             <input formControlName="amount" id="amount" class="form-control" placeholder="Nhập số lượng"
                                 type="number" name="amount" (input)="formatInput($any($event).target)">
-                            <div class="text-danger" *ngFor="let validation of validation_messages.amount">
-                                <div class="error-message mes-size"
-                                    *ngIf="form.controls['amount'].hasError(validation.type) && (form.controls['amount'].dirty || form.controls['amount'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                                <control-message field="Số lượng" [control]="form.get('amount')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
@@ -114,9 +89,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of inputDto">
+                    <tr *ngFor="let item of list">
                         <th scope="row"></th>
-                        <td>{{item.perfume_code}}</td>
+                        <td>{{item.id}}</td>
                         <td>{{item.perfume_name }}</td>
                         <td>{{item.amount}}</td>
                         <td class="text-right price-right">{{item.price}}</td>

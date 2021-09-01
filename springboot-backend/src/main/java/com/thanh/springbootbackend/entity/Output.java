@@ -19,8 +19,7 @@ public class Output {
     private String customerName;
     private String phone;
     private String address;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateOutput;
+    private java.util.Date dateOutput;
     private double total;
     @ColumnDefault("0")
     private int deleteFlag;

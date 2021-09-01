@@ -2,8 +2,6 @@
 <h1 class="h3 mb-2 text-gray-800">Thống kê</h1>
 <p></p>
 
-
-
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Thống kê doanh thu theo tháng</h6>
@@ -22,7 +20,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of revenue_By_Month">
-                        <td>{{item[0]}}</td>
+                        <td class="text-right">{{item[0]}}</td>
                         <td class="text-right">{{item[1]}}</td>
                         <td class="text-right">{{item[2]|number:'1.0-0'}}</td>
                         <td class="text-right">{{item[3]|number:'1.0-0'}}</td>
@@ -37,10 +35,8 @@
                 </canvas>
             </div>
             <button mat-button mat-raised-button color="primary" (click)="update()">Update</button>
+            <hr>
         </div>
-
-
-        <hr>
     </div>
 </div>
 
@@ -48,26 +44,26 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Thống kê sản phẩm đã bán</h6>
     </div>
-    <div class="card-body">
+    <div class="card-body" style="padding: 0;">
         <div class="table-responsive">
             <div class="chart-bar">
 
                 <div class="col-sm-12 col-md-12">
                     <table class="table table-hover table-striped" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
+                        <thead class="thead-dark">
                             <tr>
                                 <th>Mã sản phẩm</th>
                                 <th>Tên sản phẩm</th>
-                                <th>Số lượng bán</th>
+                                <th class="text-right">Số lượng bán</th>
                                 <th class="text-right">Tiền thu về (VND)</th>
                                 <th class="text-right">Tiền lợi nhuận (VND)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of revenue_By_Perfume">
+                            <tr *ngFor="let item of revenue_By_Perfume | slice: (page-1) * pageSize : page * pageSize">
                                 <td>{{item[0]}}</td>
                                 <td>{{item[1]}}</td>
-                                <td>{{item[4]}}</td>
+                                <td class="text-right">{{item[4]}}</td>
                                 <td class="text-right">{{item[2]|number:'1.0-0'}}</td>
                                 <td class="text-right">{{item[3]|number:'1.0-0'}}</td>
                             </tr>
@@ -77,50 +73,11 @@
             </div>
         </div>
         <hr>
+        <div class="col-sm-12 col-md-12">
+            <ngb-pagination class="float-right" [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize" [boundaryLinks]="true">
+            </ngb-pagination>
+        </div>
+        
     </div>
 </div>
-<!-- <div class="row">
-            <div class="col-sm-12 col-md-4">
-                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="chang($event)">
-                    <option [ngValue]="6">6 sản phẩm</option>
-                    <option [ngValue]="8">8 sản phẩm</option>
-                    <option [ngValue]="10">10 sản phẩm</option>
-                </select>
-            </div>
-            <div class="col-sm-12 col-md-4 text-right">
-                <label *ngIf="page==1&&(page*pageSize)<collectionSize">Hiển thị: 1 - {{page*pageSize}} trên
-                    {{collectionSize}} sản phẩm</label>
-                <label *ngIf="page!=1&&(page*pageSize)<collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
-                    {{page*pageSize}} trên
-                    {{collectionSize}} sản phẩm</label>
-                <label *ngIf="page!=1&&(page*pageSize)>collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
-                    {{collectionSize}} trên
-                    {{collectionSize}} sản phẩm</label>
-                <label *ngIf="page==1&&(page*pageSize)>collectionSize">Hiển thị: 1 - {{collectionSize}} trên
-                    {{collectionSize}} sản phẩm</label>
-            </div>
-            <div class="col-sm-12 col-md-4 float-right">
-                <div class="dataTables_paginate paging_simple_numbers float-right" style="padding: 0;">
-                    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize"
-                        [boundaryLinks]="true">
-                        <ng-template ngbPaginationPages let-page let-pages="pages">
-                            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
-                                <div class="form-group d-flex flex-nowrap px-2">
-                                    <label id="paginationInputLabel" for="paginationInput"
-                                        class="col-form-label mr-2 ml-1">Trang</label>
-                                    <input #i type="text" inputmode="numeric" pattern="[0-9]*"
-                                        class="form-control custom-pages-input" id="paginationInput" [value]="page"
-                                        (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
-                                        (input)="formatInput($any($event).target)"
-                                        aria-labelledby="paginationInputLabel paginationDescription"
-                                        style="width: 2.5rem" />
-                                    <span id="paginationDescription" class="col-form-label text-nowrap px-2">
-                                        / {{pages.length}}</span>
-                                </div>
-                            </li>
-                        </ng-template>
-                    </ngb-pagination>
-                </div>
-            </div>
-        </div> -->
 <app-inventory-statistics></app-inventory-statistics>

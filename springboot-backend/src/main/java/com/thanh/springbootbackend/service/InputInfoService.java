@@ -34,7 +34,7 @@ public class InputInfoService implements IInputInfoService {
             inputInfo.setAmount(item.getAmount());
             inputInfo.setInputPrice(item.getPrice());
             inputInfo.setInput(input);
-            Perfume perfume= perfumeRepositorry.findByCode(item.getPerfume_code());
+            Perfume perfume= perfumeRepositorry.findPerfumeByIdAndFlag(item.getId());
             inputInfo.setPerfume(perfume);
             inputInfoRepository.save(inputInfo);
             //======cập nhật lại số lượng và giá sản phẩm==========

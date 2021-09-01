@@ -9,8 +9,10 @@ import com.thanh.springbootbackend.service.serviceI.IInputInfoService;
 import com.thanh.springbootbackend.service.serviceI.IInputService;
 import com.thanh.springbootbackend.service.serviceI.ISuplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -66,13 +68,13 @@ public class InputController {
         map.put("result",supliers);
         return map;
     }
-
+    @Transactional(rollbackFor = { SQLException.class })
     @PostMapping("input-create/{id}")
     public Map<String,Object>create(@RequestBody List<InputInfoModel> list, @PathVariable long id){
         Map<String,Object>map=new HashMap<>();
         try {
-            Input input=inputService.createInput(id);
-            inputInfoService.addInputInfo(list,input);
+            Input input=inputService.createInput(id);//Tạo phiếu nhập
+            inputInfoService.addInputInfo(list,input);// tạo chi tiết phiếu nhập
             map.put("result",list);
             map.put("status",200);
         } catch (Exception ex) {

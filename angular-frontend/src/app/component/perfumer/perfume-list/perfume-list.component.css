@@ -1,7 +1,7 @@
 .text-overflow {
     white-space: nowrap;
     /* khoong xuoongs dong */
-    width: 200px;
+    width: 150px;
     overflow: hidden;
     /* vuot qua width no se an phia sau */
     text-overflow: ellipsis;

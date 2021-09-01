@@ -1,9 +1,11 @@
 package com.thanh.springbootbackend.controller;
 
 import com.thanh.springbootbackend.entity.Brand;
+import com.thanh.springbootbackend.entity.Origin;
 import com.thanh.springbootbackend.entity.Perfume;
 import com.thanh.springbootbackend.model.PerfumeModel;
 import com.thanh.springbootbackend.service.serviceI.IBrandService;
+import com.thanh.springbootbackend.service.serviceI.IOriginService;
 import com.thanh.springbootbackend.service.serviceI.IPerfumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,19 +26,21 @@ public class PerfumeController {
     private IPerfumeService perfumeService;
     @Autowired
     private IBrandService brandService;
-
+    @Autowired
+    private IOriginService originService;
 
     @GetMapping("perfumes")
     public List<Perfume> getAllPerfume(){
         return perfumeService.get_All_Perfume();
     }
-    @GetMapping("perfumes/search")
-    public List<Perfume> getSearchPerfume(@RequestParam String stringSearch ) {
-        return perfumeService.search_Perfume(stringSearch);
-    }
+
     @GetMapping("brand")
     public List<Brand> getAllBrand(){
         return brandService.get_All_Brand();
+    }
+    @GetMapping("origin")
+    public List<Origin> getAllOrigin(){
+        return originService.get_All();
     }
 
     @PostMapping("perfume")
@@ -49,8 +53,8 @@ public class PerfumeController {
                 return map;
             }
         }else{
-            if(perfumeService.get_Perfume_by_Code(perfumeModel.getPerfume().getPerfume_code())!=null) {
-                map.put("msg","Mã sản phẩm đã tồn tại!");
+            if(perfumeService.get_Perfume_by_Name(perfumeModel.getPerfume().getPerfume_name())!=null) {
+                map.put("msg","Sản phẩm đã tồn tại");
                 map.put("status", false);
                 return map;
             }
@@ -64,7 +68,7 @@ public class PerfumeController {
     }
 
     @GetMapping("perfume/{id}")
-    public Map<String, Object>getPerfumeById(@PathVariable Long id) {
+    public Map<String, Object>getPerfumeById(@PathVariable String id) {
         Map<String, Object> map = new HashMap<>();
         try{
             Perfume p=perfumeService.get_Perfume_by_Id_Flag(id);
@@ -82,11 +86,11 @@ public class PerfumeController {
 
         return map;
     }
-    @GetMapping("perfume-code/{code}")
-    public Map<String, Object>getPerfumeByCode(@PathVariable String code) {
+    @GetMapping("perfume-code/{id}")
+    public Map<String, Object>getPerfumeByCode(@PathVariable String id) {
         Map<String, Object> map = new HashMap<>();
         try{
-            Perfume p=perfumeService.get_Perfume_by_Code(code);
+            Perfume p=perfumeService.get_Perfume_by_Id_Flag(id);
             if (p == null) {
                 map.put("msg", "Không tìm thấy sản phẩm này!");
                 map.put("status", false);
@@ -103,7 +107,7 @@ public class PerfumeController {
     }
 
     @PutMapping("perfume/{id}")
-    public Map<String, Object> updatePerfume(@PathVariable Long id, @Valid @RequestBody PerfumeModel perfumeModel){
+    public Map<String, Object> updatePerfume(@PathVariable String id, @Valid @RequestBody PerfumeModel perfumeModel){
         Map<String, Object> map = new HashMap<>();
         try{
             Perfume perfume=perfumeService.get_Perfume_by_Id_Flag(id);
@@ -111,6 +115,10 @@ public class PerfumeController {
                 map.put("msg","Cập nhật thất bại! Do sản phẩm đã được xóa!");
                 map.put("status", false);
                 return map;
+            }
+            if(perfumeService.get_Perfume_by_Name(perfumeModel.getPerfume().getPerfume_name())!=null){
+                map.put("msg","Trùng tên sản phẩm!");
+                map.put("status", false);
             }
             else {
                 perfumeService.update_Perfume(id, perfumeModel);
@@ -124,7 +132,7 @@ public class PerfumeController {
     }
 
     @DeleteMapping("perfume/{id}")
-    public Map<String, Object> deletePerfume(@PathVariable Long id){
+    public Map<String, Object> deletePerfume(@PathVariable String id){
         Map<String, Object> map = new HashMap<>();
         try{
             Perfume perfume = perfumeService.get_Perfume_by_Id_Flag(id);

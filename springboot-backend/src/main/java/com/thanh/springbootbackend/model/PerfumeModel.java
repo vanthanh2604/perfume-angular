@@ -8,10 +8,19 @@ public class PerfumeModel {
     @Valid
     private Perfume perfume;
     private long brandId;
+    private long originId;
 
 
     public Perfume getPerfume() {
         return perfume;
+    }
+
+    public long getOriginId() {
+        return originId;
+    }
+
+    public void setOriginId(long originId) {
+        this.originId = originId;
     }
 
     public void setPerfume(Perfume perfume) {

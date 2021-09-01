@@ -22,6 +22,7 @@ import { StatisticalComponent } from './component/statistical/statistical/statis
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
 import { InventoryStatisticsComponent } from './component/statistical/inventory-statistics/inventory-statistics.component';
+import { ControlMessageComponent } from './component/validate-message/control-message.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { InventoryStatisticsComponent } from './component/statistical/inventory-
     InputsComponent,
     InputDetailComponent, 
     OutputDetailComponent, 
-    OutputCreateComponent, 
+    OutputCreateComponent, ControlMessageComponent,
     InputCreateComponent, StatisticalComponent, DashboardComponent, InventoryStatisticsComponent
   ],
   imports: [
@@ -61,7 +62,7 @@ import { InventoryStatisticsComponent } from './component/statistical/inventory-
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger'
     }),
-    NgbModule
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

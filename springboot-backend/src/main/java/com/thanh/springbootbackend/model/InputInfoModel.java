@@ -1,19 +1,17 @@
 package com.thanh.springbootbackend.model;
 
 public class InputInfoModel {
-    private String perfume_code;
+    private String id;
     private int amount;
     private double price;
-    private Long suplierId;
 
-    public String getPerfume_code() {
-        return perfume_code;
+    public String getId() {
+        return id;
     }
 
-    public void setPerfume_code(String perfume_code) {
-        this.perfume_code = perfume_code;
+    public void setId(String id) {
+        this.id = id;
     }
-
 
     public int getAmount() {
         return amount;
@@ -31,12 +29,4 @@ public class InputInfoModel {
         this.price = price;
     }
 
-
-    public Long getSuplierId() {
-        return suplierId;
-    }
-
-    public void setSuplierId(Long suplierId) {
-        this.suplierId = suplierId;
-    }
 }

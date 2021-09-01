@@ -36,7 +36,7 @@
             <tbody>
                 <tr *ngFor="let item of inputInfo;index as i">
                     <td>{{i+1}}</td>
-                    <td>{{item.perfume.perfume_code}}</td>
+                    <td>{{item.perfume.id}}</td>
                     <td>{{item.perfume.perfume_name}}</td>
                     <td class="price-right text-right">{{item.amount}}</td>
                     <td class="price-right text-right">{{item.inputPrice | number:'1.0-0'}}</td>

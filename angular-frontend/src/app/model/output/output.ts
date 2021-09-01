@@ -7,4 +7,5 @@ export class Output {
     address:string
     dateOutput:Date
     total:number
+    outputinfo:Perfume[]=[]
 }

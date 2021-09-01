@@ -1,15 +1,17 @@
 import { Brand } from "../brand/brand";
+import { Origin } from "../origin/origin";
 
 
 export class Perfume {
-    id: number;
-    perfume_code: string
+    id: string;
     perfume_name: string;
     amount: number;
     price: number;
     description: string;  
     ngayNhap: Date;
     brandId: number; 
-    brand: Brand; 
+    originId: number; 
+    brand: Brand;
+    orrigin: Origin
     suplierId:number;
 }

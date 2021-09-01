@@ -12,6 +12,9 @@ import { Label } from 'ng2-charts';
 export class StatisticalComponent implements OnInit {
   revenue_By_Perfume: Array<any>[] = []
   revenue_By_Month: Array<any>[] = []
+  page = 1;
+  pageSize = 5;
+  collectionSize:number
   constructor(private statisticalService: StatisticalService, private router: Router,) { }
 
   ngOnInit(): void {
@@ -22,11 +25,12 @@ export class StatisticalComponent implements OnInit {
     this.statisticalService.getStatistical().subscribe((response: any) => {
       if(response.status==200){
         this.revenue_By_Perfume = response.result
+        this.collectionSize=this.revenue_By_Perfume.length
       }else{
         alert("Lỗi")
       }
     })
-  }
+  } 
   getStatisticalMonth() {
     this.statisticalService.getStatisticalMonth().subscribe((response: any) => {
       if(response.status==200){

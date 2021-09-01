@@ -2,6 +2,7 @@ package com.thanh.springbootbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,14 +13,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "perfume")
+@Table(name = "perfume",uniqueConstraints=
+@UniqueConstraint(columnNames={"perfume_name"}))
 public class Perfume {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(unique = true,length = 12)
-    @NotBlank(message = "Mã Sản phẩm không được để trống")
-    private String perfume_code;
+    @GeneratedValue(generator = "my_generator")
+    @GenericGenerator(name = "my_generator", strategy = "com.thanh.springbootbackend.MyGenerator")
+    private String id;
     @NotBlank(message = "Tên sản phẩm Không được để trống")
     @Size(max = 50, message = "Không được quá 50 ký tự")
     private String perfume_name;
@@ -36,6 +36,9 @@ public class Perfume {
     @ManyToOne()
     @JoinColumn(name = "brand_id")
     private Brand brand;
+    @ManyToOne()
+    @JoinColumn(name = "origin_id")
+    private Origin origin;
     @OneToMany(mappedBy = "perfume")
     @JsonIgnore
     List<InputInfo> inputInfoList;
@@ -44,6 +47,14 @@ public class Perfume {
     List<OutputInfo>outputInfoList;
 
     public Perfume() {
+    }
+
+    public Origin getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Origin origin) {
+        this.origin = origin;
     }
 
     public List<InputInfo> getInputInfoList() {
@@ -78,14 +89,6 @@ public class Perfume {
         this.amount = amount;
     }
 
-    public String getPerfume_code() {
-        return perfume_code;
-    }
-
-    public void setPerfume_code(String perfume_code) {
-        this.perfume_code = perfume_code;
-    }
-
     public String getPerfume_name() {
         return perfume_name;
     }
@@ -94,12 +97,20 @@ public class Perfume {
         this.perfume_name = perfume_name;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public List<OutputInfo> getOutputInfoList() {
+        return outputInfoList;
+    }
+
+    public void setOutputInfoList(List<OutputInfo> outputInfoList) {
+        this.outputInfoList = outputInfoList;
     }
 
     public double getPrice() {

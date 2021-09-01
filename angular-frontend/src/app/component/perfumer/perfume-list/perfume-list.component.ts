@@ -8,7 +8,7 @@ import { ToastService } from 'src/app/service/toast-service/toast-service';
 
 function getAlertConfig(): TooltipConfig {
   return Object.assign(new TooltipConfig(), {
-    placement: 'bottom',
+    placement: 'left',
     container: 'body',
     delay: 200
   });
@@ -27,7 +27,12 @@ export class PerfumeListComponent implements OnInit {
   pageSize = 6;
   collectionSize = 0;
   FILTER = /[^0-9]/g;
-  constructor(private perfumeService: PerfumeService, private router: Router, public toastService: ToastService) { }
+  constructor(
+    private perfumeService: PerfumeService,
+     private router: Router, 
+     public toastService: ToastService) { 
+       
+     }
 
   ngOnInit(): void {
     this.searchPerfume = new FormGroup({
@@ -36,24 +41,16 @@ export class PerfumeListComponent implements OnInit {
     this.perfumeService.getPerfumes().subscribe((data: Perfume[]) => {
       this.perfumes = data;
       this.perfumess = data;
-      this.collectionSize = data.length
+      this.collectionSize = data.length;
     })
 
-  }
-  //=============SearchBE===========
-  SearchPerfume() {
-    this.perfumeService.search(this.searchPerfume.value.namePerfume).subscribe((data: Perfume[]) => {
-      this.perfumes = data
-      this.collectionSize = data.length
-      this.page = 1
-    })
   }
  //=============SearchFE===========
  searchPerfumes(key: string):void{
   const result: Perfume[]=[];
   key=key.trim();
   for(const perfume of this.perfumess){
-    if(perfume.perfume_code.toLowerCase().indexOf(key.toLowerCase()) !==-1
+    if(perfume.id.toLowerCase().indexOf(key.toLowerCase()) !==-1
     ||perfume.perfume_name.toLowerCase().indexOf(key.toLowerCase()) !==-1
     ||perfume.brand.brand_name.toLowerCase().indexOf(key.toLowerCase()) !==-1)
     {

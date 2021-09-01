@@ -15,40 +15,41 @@ import java.util.List;
 
 @Service
 public class OutputInfoService implements IOutputInfoService {
- @Autowired
- private OutInfoRepository outInfoRepository;
- @Autowired
- private PerfumeRepositorry perfumeRepositorry;
- @Autowired
- private OutputRepository outputRepository;
- @Override
- public List<OutputInfo> get_ALl_OutputInfo_by_idInput(Long id) {
-  return outInfoRepository.findAllByOutputId(id);
- }
+    @Autowired
+    private OutInfoRepository outInfoRepository;
+    @Autowired
+    private PerfumeRepositorry perfumeRepositorry;
+    @Autowired
+    private OutputRepository outputRepository;
 
- @Override
- public void saveOuputInfo(OutputInfo outputInfo) {
-  outInfoRepository.save(outputInfo);
- }
+    @Override
+    public List<OutputInfo> get_ALl_OutputInfo_by_idInput(Long id) {
+        return outInfoRepository.findAllByOutputId(id);
+    }
 
- @Override
- public void addOutputInfo(List<InputInfoModel> list, Output output) {
-     double total=0;
-  for (InputInfoModel item:list) {
-    OutputInfo outputInfo =new OutputInfo();
-    outputInfo.setAmount(item.getAmount());
-    outputInfo.setOutputPrice(item.getPrice());
-    outputInfo.setOutput(output);
-    Perfume perfume= perfumeRepositorry.findByCode(item.getPerfume_code());
-    outputInfo.setPerfume(perfume);
-    outInfoRepository.save(outputInfo);
-   //======cập nhật lại số lượng sản phẩm==========
-   perfume.setAmount(perfume.getAmount()-item.getAmount());
-   perfumeRepositorry.save(perfume);
-   //======total=========
-   total=total+(item.getAmount()*item.getPrice());
-  }
-  output.setTotal(total);
-  outputRepository.save(output);
- }
+    @Override
+    public void saveOuputInfo(OutputInfo outputInfo) {
+        outInfoRepository.save(outputInfo);
+    }
+
+    @Override
+    public void addOutputInfo(List<InputInfoModel> list, Output output) {
+        double total = 0;
+        for (InputInfoModel item : list) {
+            OutputInfo outputInfo = new OutputInfo();
+            outputInfo.setAmount(item.getAmount());
+            outputInfo.setOutputPrice(item.getPrice());
+            outputInfo.setOutput(output);
+            Perfume perfume = perfumeRepositorry.findPerfumeByIdAndFlag(item.getId());
+            outputInfo.setPerfume(perfume);
+            outInfoRepository.save(outputInfo);
+            //======cập nhật lại số lượng sản phẩm==========
+            perfume.setAmount(perfume.getAmount() - item.getAmount());
+            perfumeRepositorry.save(perfume);
+            //======total=========
+            total = total + (item.getAmount() * item.getPrice());
+        }
+        output.setTotal(total);
+        outputRepository.save(output);
+    }
 }

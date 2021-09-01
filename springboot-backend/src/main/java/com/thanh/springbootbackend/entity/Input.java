@@ -14,7 +14,7 @@ public class Input {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateInput;
+    private java.util.Date dateInput;
     @ColumnDefault("0")
     private int deleteFlag;
     private double total;

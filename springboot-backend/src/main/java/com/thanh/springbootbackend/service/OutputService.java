@@ -1,6 +1,7 @@
 package com.thanh.springbootbackend.service;
 
 import com.thanh.springbootbackend.entity.Output;
+import com.thanh.springbootbackend.model.OutputModel;
 import com.thanh.springbootbackend.repository.OutputRepository;
 import com.thanh.springbootbackend.service.serviceI.IOutputService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,11 @@ public class OutputService implements IOutputService {
     }
 
     @Override
-    public Output createOutput(Output output) {
+    public Output createOutput(OutputModel outputModel) {
+        Output output=new Output();
+        output.setCustomerName(outputModel.getCustomerName());
+        output.setPhone(outputModel.getPhone());
+        output.setAddress(outputModel.getAddress());
         output.setDateOutput(new Date());
         outputRepository.save((output));
         return outputRepository.findByOpcuoi();

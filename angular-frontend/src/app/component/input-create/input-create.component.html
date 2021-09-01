@@ -26,45 +26,30 @@
                 <div class="form-row">
                     <div class="col-md-3 mb-1">
                         <div class="form-group">
-                            <label for="code">Mã sản phẩm</label>
-                            <select id="perfume_code" name="perfume_code" formControlName="perfume_code"
-                                class="form-control">
-                                <option [value]="">---Vui lòng chọn---</option>
-                                <option *ngFor="let item of perfumes" [value]="item.perfume_code">{{item.perfume_code}}
+                            <label for="code">Tên sản phẩm</label>
+                            <select class="form-select form-control" id="id" name="id" formControlName="id">
+                                <option value="" selected>---Vui lòng chọn---</option>
+                                <option *ngFor="let item of perfumes" [value]="item.id">{{item.perfume_name}}
                                 </option>
                             </select>
-                            <!-- <input formControlName="perfume_code" id="code" class="form-control"
-                                placeholder="Nhập mã sản phẩm" type="text" name="perfume_code"> -->
-                            <div class="text-danger" *ngFor="let validation of validation_messages.perfume_code">
-                                <div class="error-message mes-size"
-                                    *ngIf="form.controls['perfume_code'].hasError(validation.type) && (form.controls['perfume_code'].dirty || form.controls['perfume_code'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                            <control-message field="Tên sản phẩm" [control]="form.get('id')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
                         <div class="form-group">
                             <label for="price">Giá nhập</label>
                             <input formControlName="price" id="price" class="form-control"
-                                placeholder="Nhập giá sản phẩm" type="number" name="price" pattern="[0-9]*"
-                                inputmode="numeric" (input)="formatInput($any($event).target)">
-                            <div class="text-danger" *ngFor="let validation of validation_messages.price">
-                                <div class="error-message mes-size"
-                                    *ngIf="form.controls['price'].hasError(validation.type) && (form.controls['price'].dirty || form.controls['price'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                                placeholder="Nhập giá sản phẩm" type="text" name="price" pattern="[0-9]*"
+                                inputmode="numeric">
+                                <control-message field="Giá nhập" [control]="form.get('price')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
                         <div class="form-group">
                             <label for="amount">Số lượng</label>
                             <input formControlName="amount" id="amount" class="form-control" placeholder="Nhập số lượng"
-                                type="number" name="amount" (input)="formatInput($any($event).target)">
-                            <div class="text-danger" *ngFor="let validation of validation_messages.amount">
-                                <div class="error-message mes-size"
-                                    *ngIf="form.controls['amount'].hasError(validation.type) && (form.controls['amount'].dirty || form.controls['amount'].touched)">
-                                    {{validation.message}}</div>
-                            </div>
+                                type="text" name="amount">
+                                <control-message field="Số lượng" [control]="form.get('amount')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
@@ -88,9 +73,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of inputDto">
+                    <tr *ngFor="let item of list">
                         <th scope="row"></th>
-                        <td>{{item.perfume_code}}</td>
+                        <td>{{item.id}}</td>
                         <td>{{item.perfume_name }}</td>
                         <td>{{item.amount}}</td>
                         <td class="text-right price-right">{{item.price}}</td>
@@ -112,5 +97,4 @@
         </div>
     </div>
 </div>
-{{inputDto|json}}
 <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

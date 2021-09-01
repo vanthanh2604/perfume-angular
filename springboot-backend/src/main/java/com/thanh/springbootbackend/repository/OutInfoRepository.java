@@ -24,7 +24,7 @@ public interface OutInfoRepository extends CrudRepository<OutputInfo,Long> {
             "   from  output_info as opi right join perfume as p on opi.perfume_id=p.id;")
     Double profit ();
 // doanh thu theo sản phẩm đã bán
-    @Query(nativeQuery=true, value="   select per.perfume_code,per.perfume_name,\n" +
+    @Query(nativeQuery=true, value="   select per.id,per.perfume_name,\n" +
             "\t\t SUM(op.output_price*op.amount) as revenue,SUM((op.output_price*op.amount)-(per.price*op.amount)) as profit, Sum(op.amount) as amount" +
             "   from perfume as per join output_info as op on per.id=op.perfume_id\n" +
             "   GROUP BY op.perfume_id;")
