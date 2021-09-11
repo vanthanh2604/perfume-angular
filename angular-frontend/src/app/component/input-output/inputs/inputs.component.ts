@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmBoxInitializer } from '@costlydeveloper/ngx-awesome-popup';
+import { ConfirmBoxService } from '@costlydeveloper/ngx-awesome-popup/ngx-awesome-popup/types/confirm-box/core/confirm-box-service';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 import { Input } from 'src/app/model/input/input';
 import { Output } from 'src/app/model/output/output';
 import { InputService } from 'src/app/service/input-service/input.service';
 import { OutputService } from 'src/app/service/output-service/output.service';
+import { Message } from 'src/app/service/message/message.service';
+import { ConfirmBoxSevice } from 'src/app/service/confirmBox/confirmBox.service';
 
 @Component({
   selector: 'app-inputs',
@@ -22,8 +26,13 @@ export class InputsComponent implements OnInit {
   FILTER = /[^0-9]/g;
   active: number;
   disabled = true;
-  tam:number
-  constructor(private route:ActivatedRoute, private router: Router, private inputService: InputService, private outputService: OutputService) { }
+  tam: number
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private inputService: InputService,
+    private outputService: OutputService,
+    private confirmBoxSevice: ConfirmBoxSevice,) { }
 
   ngOnInit(): void {
     this.inputService.getInputs().subscribe((data: Input[]) => {
@@ -47,10 +56,10 @@ export class InputsComponent implements OnInit {
   }
   searchInput(key: string): void {
     const result: Input[] = [];
-    key=key.trim();
+    key = key.trim();
     for (const inputt of this.inputss) {
       if (inputt.suplier.suplierName.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      ||inputt.suplier.suplierName.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        || inputt.suplier.suplierName.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         result.push(inputt)
       }
     }
@@ -66,7 +75,7 @@ export class InputsComponent implements OnInit {
 
   searchOutput(key: string): void {
     const result: Output[] = [];
-    key=key.trim();
+    key = key.trim();
     for (const output of this.outputss) {
       if (output.customerName.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         result.push(output)
@@ -104,12 +113,15 @@ export class InputsComponent implements OnInit {
       console.log(response)
       if (response.status == 200) {
         this.router.navigate(['/input-detail/', id]);
-        
+
       }
       else {
-        if (confirm("Không tìm thấy! Bạn có muốn load lại trang không?")) {
-          this.ngOnInit();
-        }
+        const confirmBox = this.confirmBoxSevice.confirmBoxDeleteLoad();
+        confirmBox.openConfirmBox$().subscribe(resp => {
+          if (resp.Success == true) {
+            this.ngOnInit();
+          }
+        })
       }
     })
   }
@@ -119,9 +131,12 @@ export class InputsComponent implements OnInit {
       if (response.status == 200) {
         this.router.navigate(['/output-detail', id]);
       } else {
-        if (confirm(response.msg + " Bạn có muốn làm mới trang không?")) {
-          this.ngOnInit();
-        }
+        const confirmBox = this.confirmBoxSevice.confirmBoxDeleteLoad();
+        confirmBox.openConfirmBox$().subscribe(resp => {
+          if (resp.Success == true) {
+            this.ngOnInit();
+          }
+        })
       }
     })
   }

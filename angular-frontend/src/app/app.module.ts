@@ -23,6 +23,12 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
 import { InventoryStatisticsComponent } from './component/statistical/inventory-statistics/inventory-statistics.component';
 import { ControlMessageComponent } from './component/validate-message/control-message.component';
+import { NgxCurrencyModule } from "ngx-currency";
+import { 
+  NgxAwesomePopupModule, 
+  ConfirmBoxConfigModule 
+} from '@costlydeveloper/ngx-awesome-popup';
+import { AutoFocusDirectiveDirective } from './component/perfumer/perfume-form/auto-focus-directive.directive';
 
 @NgModule({
   declarations: [
@@ -35,10 +41,11 @@ import { ControlMessageComponent } from './component/validate-message/control-me
     InputDetailComponent, 
     OutputDetailComponent, 
     OutputCreateComponent, ControlMessageComponent,
-    InputCreateComponent, StatisticalComponent, DashboardComponent, InventoryStatisticsComponent
+    InputCreateComponent, StatisticalComponent, DashboardComponent, InventoryStatisticsComponent, AutoFocusDirectiveDirective
   ],
   imports: [
     TooltipModule,
+    NgxCurrencyModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
@@ -62,6 +69,8 @@ import { ControlMessageComponent } from './component/validate-message/control-me
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger'
     }),
+    NgxAwesomePopupModule.forRoot(),
+    ConfirmBoxConfigModule.forRoot(),
     NgbModule,
   ],
   providers: [],

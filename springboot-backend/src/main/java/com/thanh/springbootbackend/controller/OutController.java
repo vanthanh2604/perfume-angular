@@ -16,6 +16,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * OutController
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/")
@@ -25,13 +39,20 @@ public class OutController {
     @Autowired
     private IOutputInfoService outputInfoService;
 
+    /**
+     * get all outputs
+     */
     @GetMapping("outputs")
     public List<Output> getAllInput() {
-        return outputService.get_All_Output();
+        return outputService.getAllOutput();
     }
 
+    /**
+     * get output by id
+     * @param id
+     */
     @GetMapping("output/{id}")
-    public Map<String, Object> get_Output(@PathVariable Long id) {
+    public Map<String, Object> getOutput(@PathVariable Long id) {
         Map<String, Object> map = new HashMap<>();
         Output op = outputService.getById(id);
         if (op == null) {
@@ -44,46 +65,38 @@ public class OutController {
         return map;
     }
 
+    /**
+     * get output detail
+     * @param id
+     */
     @GetMapping("output-details/{id}")
-    public Map<String, Object> getInputDetails(@PathVariable Long id) {
+    public Map<String, Object> getOutputDetails(@PathVariable Long id) {
         Map<String, Object> map = new HashMap<>();
-        List<OutputInfo> ops = outputInfoService.get_ALl_OutputInfo_by_idInput(id);
+        List<OutputInfo> ops = outputInfoService.getALlOutputInfoByIdInput(id);
         map.put("result", ops);
         map.put("status", 200);
         return map;
     }
 
-    //    @PostMapping("output")
-//    public Map<String, Object>createOutput(@RequestBody Output output){
-//        Map<String, Object>map=new HashMap<>();
-//        Output out=outputService.createOutput(output);
-//        map.put("status",200);
-//        map.put("output",out);
-//        return map;
-//    }
-    @Transactional(rollbackFor = {SQLException.class})
+    /**
+     * create output
+     * @param outputModel
+     */
     @PostMapping("output")
     public Map<String, Object> create(@RequestBody OutputModel outputModel) {
         Map<String, Object> map = new HashMap<>();
         try{
-            Output out = outputService.createOutput(outputModel);
-            outputInfoService.addOutputInfo(outputModel.getOutputinfo(), out);
-            map.put("status", 200);
-            map.put("output", out);
+            if(outputModel.getCustomerName()==""|outputModel.getPhone()==""){
+                map.put("status",400);
+            }else {
+                Output out = outputService.createOutput(outputModel);
+                outputInfoService.addOutputInfo(outputModel.getOutputinfo(), out);
+                map.put("status", 200);
+                map.put("output", out);
+            }
         }catch (Exception e){
             map.put("status", 500);
         }
-
         return map;
     }
-//
-//    @PostMapping("outputInfo/{idOp}")
-//    public Map<String, Object> createInputInfo(@RequestBody List<InputInfoModel> infoDto, @PathVariable Long idOp) {
-//        Map<String, Object> map = new HashMap<>();
-//        Output output = outputService.getById(idOp);
-//        //=====Thêm sản phẩm vào outputInfo============
-//        outputInfoService.addOutputInfo(infoDto, output);
-//        map.put("status", 200);
-//        return map;
-//    }
 }

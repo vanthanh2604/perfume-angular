@@ -12,6 +12,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * StatisticalService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Service
 public class StatisticalService implements IStatisticalService {
     @Autowired
@@ -20,7 +34,7 @@ public class StatisticalService implements IStatisticalService {
     private InputInfoRepository inputInfoRepository;
     // Doanh thu, lợi nhuận theo sản phẩm đã bán
     @Override
-    public Map<String, Object> revenue_By_Perfume() {
+    public Map<String, Object> revenueByPerfume() {
         Map<String, Object> map=new HashMap<>();
         try{
             List<?> list= outInfoRepository.revenue_by_perfume();
@@ -33,7 +47,7 @@ public class StatisticalService implements IStatisticalService {
     }
     // theo tháng
     @Override
-    public Map<String, Object> revenue_By_Month() {
+    public Map<String, Object> revenueByMonth() {
         Map<String, Object> map=new HashMap<>();
         try{
             List<?> list= outInfoRepository.revenue_by_month();
@@ -46,7 +60,7 @@ public class StatisticalService implements IStatisticalService {
     }
 
     @Override
-    public Map<String, Object> inventory_statistical() {
+    public Map<String, Object> inventoryStatistical() {
         Map<String, Object>map=new HashMap<>();
         List<Integer>list=new ArrayList<>();
         try {

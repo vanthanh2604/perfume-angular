@@ -5,6 +5,21 @@ import java.util.stream.Stream;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
+
+/**
+ * MyGenerator
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 public class MyGenerator implements IdentifierGenerator {
     private String prefix = "SP";
     @Override

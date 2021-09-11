@@ -1,5 +1,19 @@
 package com.thanh.springbootbackend.model;
 
+/**
+ * RevenuePerfumeModel
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 public class RevenuePerfumeModel {
     private String perfume_code;
     private String perfume_name;

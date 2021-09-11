@@ -5,11 +5,26 @@ import com.thanh.springbootbackend.entity.Perfume;
 
 import java.util.List;
 
+/**
+ * IPerfumeService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 public interface IPerfumeService {
-    List<Perfume> get_All_Perfume();
-    Perfume get_Perfume_by_Id_Flag(String id);
-    Perfume get_Perfume_by_Name(String perfume_name);
-    void create_Perfume(PerfumeModel perfumeModel);
-    void update_Perfume(String id, PerfumeModel perfumeModel);
-    void delete_Perfume(String id);
+    List<Perfume> getAllPerfume();
+    List<Perfume> getAllPerfumeStocking();
+    Perfume getPerfumeByIdFlag(String id);
+    Perfume getPerfumeByName(String perfume_name);
+    void createPerfume(PerfumeModel perfumeModel);
+    void updatePerfume(String id, PerfumeModel perfumeModel);
+    void deletePerfume(String id);
 }

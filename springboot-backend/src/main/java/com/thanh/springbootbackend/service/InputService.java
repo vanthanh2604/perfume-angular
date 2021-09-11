@@ -12,27 +12,47 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * InputService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Service
 public class InputService implements IInputService {
     @Autowired
     private InputRepository inputRepository;
     @Autowired
     private SuplierRepository suplierRepository;
+
+    /**
+     * get all input
+     */
     @Override
-    public List<Input> get_ALl_Input() {
+    public List<Input> getALlInput() {
         return inputRepository.findAllDesc();
     }
 
+    /**
+     * get input by id
+     * @param id
+     */
     @Override
     public Input getById(Long id) {
         return inputRepository.findByIdIp(id);
     }
 
-    @Override
-    public void addInput(Input input) {
-        inputRepository.save(input);
-    }
-
+    /**
+     * get all suppliers
+     */
     @Override
     public Input createInput(Long suplierId) {
         Suplier suplier=suplierRepository.findById(suplierId).get();
@@ -44,6 +64,9 @@ public class InputService implements IInputService {
         return input1;
     }
 
+    /**
+     * get input last
+     */
     @Override
     public Input getInputCuoi() {
         return inputRepository.findByIdIpcuoi();

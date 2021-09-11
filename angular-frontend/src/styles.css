@@ -10,3 +10,6 @@
   .min-heigh{
       min-height: 570px;
   }
+  *{
+    font-size: 99%;
+  }

@@ -8,6 +8,20 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Input
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Entity
 public class Input {
     @Id

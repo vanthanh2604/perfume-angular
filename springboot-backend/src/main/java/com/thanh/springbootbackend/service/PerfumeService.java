@@ -14,6 +14,20 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * PerfumeService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Service
 public class PerfumeService implements IPerfumeService {
     @Autowired
@@ -23,21 +37,26 @@ public class PerfumeService implements IPerfumeService {
     @Autowired
     private OriginRepository originRepository;
     @Override
-    public List<Perfume> get_All_Perfume() {
+    public List<Perfume> getAllPerfume() {
         return perfumeRepositorry.findAllDesc();
     }
 
     @Override
-    public Perfume get_Perfume_by_Id_Flag(String id) {
+    public List<Perfume> getAllPerfumeStocking() {
+        return perfumeRepositorry.findAllPerfumeStocking();
+    }
+
+    @Override
+    public Perfume getPerfumeByIdFlag(String id) {
         return perfumeRepositorry.findPerfumeByIdAndFlag(id);
     }
     @Override
-    public Perfume get_Perfume_by_Name(String code) {
+    public Perfume getPerfumeByName(String code) {
         return perfumeRepositorry.findByCode(code);
     }
 
     @Override
-    public void create_Perfume(PerfumeModel perfumeModel) {
+    public void createPerfume(PerfumeModel perfumeModel) {
         Perfume per = perfumeModel.getPerfume();
         per.setNgayNhap(new Date());
         per.setDeleteFlag(0);
@@ -49,7 +68,7 @@ public class PerfumeService implements IPerfumeService {
     }
 
     @Override
-    public void update_Perfume(String id, PerfumeModel perfumeModel) {
+    public void updatePerfume(String id, PerfumeModel perfumeModel) {
         Perfume perfume= perfumeRepositorry.findPerfumeByIdAndFlag(id);
         perfume.setPerfume_name(perfumeModel.getPerfume().getPerfume_name());
         perfume.setDescription(perfumeModel.getPerfume().getDescription());
@@ -61,7 +80,7 @@ public class PerfumeService implements IPerfumeService {
     }
 
     @Override
-    public void delete_Perfume(String id) {
+    public void deletePerfume(String id) {
         Perfume perfume=perfumeRepositorry.findPerfumeByIdAndFlag(id);
         perfume.setDeleteFlag(1);
         perfumeRepositorry.save(perfume);

@@ -8,6 +8,20 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * OutputRepository
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Repository
 public interface OutputRepository extends CrudRepository<Output,Long> {
     @Query("SELECT op FROM Output op WHERE op.deleteFlag=0 ORDER BY op.id  DESC")

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Brand } from 'src/app/model/brand/brand';
@@ -7,7 +7,9 @@ import { Origin } from 'src/app/model/origin/origin';
 import { Perfume } from 'src/app/model/perfume/perfume';
 import { PerfumeService } from 'src/app/service/perfume-service/perfume.service';
 import { ToastService } from 'src/app/service/toast-service/toast-service';
-import { ValidateService } from '../../validate-message/validate.service';
+import { Message } from 'src/app/service/message/message.service';
+import { ConfirmBoxSevice } from 'src/app/service/confirmBox/confirmBox.service';
+
 @Component({
   selector: 'app-perfume-form',
   templateUrl: './perfume-form.component.html',
@@ -19,15 +21,16 @@ export class PerfumeFormComponent implements OnInit {
   brands: Brand[];
   origins: Origin[];
   infoform: any;
+  @ViewChild('input') input: ElementRef;
   constructor(
     public toastService: ToastService,
     private perfumeService: PerfumeService,
     private route: ActivatedRoute,
     private router: Router,
+    private confirmBoxSevice: ConfirmBoxSevice,private elementRef: ElementRef,
     private fb: FormBuilder) {
     this.infoform = this.fb.group({
       perfume_name: ['', [Validators.required, Validators.maxLength(50)]],
-      price: ['', [Validators.required, ValidateService.numberValidator]],
       description: ['', [Validators.required, Validators.maxLength(255)]],
       brandId: ['', [Validators.required]],
       originId: ['', [Validators.required]],
@@ -36,7 +39,6 @@ export class PerfumeFormComponent implements OnInit {
   idPerfume = this.route.snapshot.params['id'];
 
   ngOnInit(): void {
-
     this.perfumeService.getBrand().subscribe((response: any) => {
       this.brands = response;
     })
@@ -52,13 +54,22 @@ export class PerfumeFormComponent implements OnInit {
           this.perfume.brandId = this.perfume.brand.id
           this.perfume.originId = this.perfume.brand.id
           this.infoform.patchValue(p);
+          console.log(this.infoform)
         } else {
           alert(response.msg);
           this.router.navigate(['/perfumes']);
         }
-
       });
     }
+  }
+  
+  onKey(event: any) {
+    if (event.key === 'Tab') {
+      this.input.nativeElement.focus();
+    }
+  }
+  get f() {
+    return this.infoform.controls;
   }
   //==============================
   validateAllFormFields(formGroup: FormGroup) {
@@ -72,6 +83,7 @@ export class PerfumeFormComponent implements OnInit {
       }
     });
   }
+
   onSubmit() {
     if (this.infoform.valid) {
       this.perfumeDto.perfume = this.infoform.value
@@ -81,9 +93,12 @@ export class PerfumeFormComponent implements OnInit {
         console.log(this.perfumeDto);
         this.addPerfume();
       } else {
-        if (confirm("Bạn có chắc cập nhật sản phẩm này? ")) {
-          this.updatePerfume()
-        }
+        const confirmBox = this.confirmBoxSevice.confirmBoxUpdate();
+        confirmBox.openConfirmBox$().subscribe(resp => {
+          if (resp.Success == true) {
+            this.updatePerfume()
+          }
+        })
       }
     } else { this.validateAllFormFields(this.infoform); }
   }
@@ -91,13 +106,16 @@ export class PerfumeFormComponent implements OnInit {
   addPerfume() {
     this.perfumeService.createPerfume(this.perfumeDto).subscribe((response: any) => {
       console.log(response);
-      if (response.status == true) {
-        this.toastService.show(response.msg, { classname: 'bg-success text-light', delay: 4500 });
-        this.infoform.reset();
-        // this.router.navigate(['/perfumes']);
-      } else {
-        this.toastService.show(response.msg, { classname: 'bg-danger text-light', delay: 5000 });
+      if (response.status == 200) {
+        this.toastService.show("success");
+        this.router.navigate(['/perfumes']);
       }
+      if (response.status == false) {
+        this.toastService.warning(Message.msgPerfumeExist);
+      }
+      if (response.status == 500) {
+        this.toastService.warning(Message.systemError);
+      } 
     })
   }
 
@@ -105,12 +123,13 @@ export class PerfumeFormComponent implements OnInit {
   updatePerfume() {
     this.perfumeService.editPerfume(this.idPerfume, this.perfumeDto).subscribe((response: any) => {
       console.log(response);
-      if (response.status == true) {
-        this.toastService.show(response.msg, { classname: 'bg-success text-light', delay: 4000 });
-      } else
-        this.toastService.show(response.msg, { classname: 'bg-danger text-light', delay: 5000 });
-
-      this.router.navigate(['/perfumes']);
+      if (response.status == 200) {
+        this.toastService.show("success");
+        this.router.navigate(['/perfumes']);
+      }
+      if (response.status == 500) {
+        this.toastService.warning(Message.systemError);
+      }
     })
   }
   FILTER = /[^0-9]/g;
@@ -119,4 +138,3 @@ export class PerfumeFormComponent implements OnInit {
   }
 
 }
-

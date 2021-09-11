@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { ToastService } from 'src/app/service/toast-service/toast-service';
 import { StatisticalService } from 'src/app/statistical-service/statistical.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class InventoryStatisticsComponent implements OnInit {
   nhap=0
   xuat=0
   ton=0
-  constructor(private statisticalService:StatisticalService) { }
+  constructor(private statisticalService:StatisticalService,private toastService:ToastService) { }
 
   ngOnInit(): void {
     this.getInventoryStatistics();
@@ -28,7 +29,7 @@ export class InventoryStatisticsComponent implements OnInit {
         this.pieChartData.push(response.result[0]-response.result[1])
         console.log(this.nhap)
       }
-      else {alert("lỗi")}
+      else {this.toastService.warning("Lỗi!");}
     })
   }
   // Pie

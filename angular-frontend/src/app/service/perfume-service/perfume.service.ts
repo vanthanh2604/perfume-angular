@@ -17,20 +17,22 @@ export class PerfumeService {
   getPerfumes(): Observable<Perfume[]>{
     return this.http.get<Perfume[]>(environment.baseUrl+'perfumes');
   }
+  
+  getPerfumesStocking(): Observable<Perfume[]>{
+    return this.http.get<Perfume[]>(environment.baseUrl+'perfumes/stocking');
+  }
+
   getPerfumesById(id: number): Observable<Perfume>{
     return this.http.get<Perfume>(environment.baseUrl+'perfume/'+id);
   }
+
   getBrand(){
     return this.http.get(environment.baseUrl+'brand');
   }
+
   getOrigin(){
     return this.http.get(environment.baseUrl+'origin');
   }
-
-  // getAllPerfume(index: number): Observable<Perfume[]> {
-  //   return this.http.get<Perfume[]>(this.baseUrl + 'perfumes/page=' + index)
-  // }
-
 
   deletePerfume(id: number){
     return this.http.delete(environment.baseUrl+'perfume/'+id);

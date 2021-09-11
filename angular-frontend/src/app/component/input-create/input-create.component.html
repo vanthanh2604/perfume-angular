@@ -13,7 +13,7 @@
 
             <div class="form-row">
                 <div class="col-md-6 mb-1">
-                    <label for="brand">Nhà cung cấp</label>
+                    <label for="brand">Nhà cung cấp<i class="note"> *</i></label>
                     <select [(ngModel)]="suplierId" id="suplierId" name="suplierId" class="form-control">
                         <option *ngFor="let item of supliers" [ngValue]="item.id">{{item.suplierName}}</option>
                     </select>
@@ -26,8 +26,10 @@
                 <div class="form-row">
                     <div class="col-md-3 mb-1">
                         <div class="form-group">
-                            <label for="code">Tên sản phẩm</label>
-                            <select class="form-select form-control" id="id" name="id" formControlName="id">
+                            <label for="code">Tên sản phẩm<i class="note"> *</i></label>
+                            <select class="form-select form-control" id="id" name="id" formControlName="id" [ngClass]="{
+                                'is-valid': (f?.id.valid && (f?.id.touched)),
+                                'is-invalid': (f?.id.invalid && (f?.id.touched))}">
                                 <option value="" selected>---Vui lòng chọn---</option>
                                 <option *ngFor="let item of perfumes" [value]="item.id">{{item.perfume_name}}
                                 </option>
@@ -37,19 +39,23 @@
                     </div>
                     <div class="col-md-3 mb-1">
                         <div class="form-group">
-                            <label for="price">Giá nhập</label>
+                            <label for="price">Giá nhập<i class="note"> *</i></label>
                             <input formControlName="price" id="price" class="form-control"
                                 placeholder="Nhập giá sản phẩm" type="text" name="price" pattern="[0-9]*"
-                                inputmode="numeric">
-                                <control-message field="Giá nhập" [control]="form.get('price')"></control-message>
+                                inputmode="numeric" [ngClass]="{
+                                    'is-valid': (f?.price.valid && (f?.price.touched)),
+                                    'is-invalid': (f?.price.invalid && (f?.price.touched))}">
+                            <control-message field="Giá nhập" [control]="form.get('price')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
                         <div class="form-group">
-                            <label for="amount">Số lượng</label>
+                            <label for="amount">Số lượng<i class="note"> *</i></label>
                             <input formControlName="amount" id="amount" class="form-control" placeholder="Nhập số lượng"
-                                type="text" name="amount">
-                                <control-message field="Số lượng" [control]="form.get('amount')"></control-message>
+                                type="text" name="amount" [ngClass]="{
+                                    'is-valid': (f?.amount.valid && (f?.amount.touched)),
+                                    'is-invalid': (f?.amount.invalid && (f?.amount.touched))}">
+                            <control-message field="Số lượng" [control]="form.get('amount')"></control-message>
                         </div>
                     </div>
                     <div class="col-md-3 mb-1">
@@ -85,7 +91,7 @@
                     </tr>
                     <tr>
                         <th class="text-right" colspan="5">Tổng tiền</th>
-                        <td class="text-right price-right">{{total}}</td>
+                        <td class="text-right price-right">{{total|number:'1.0-0'}}</td>
                         <td></td>
                     </tr>
                 </tbody>

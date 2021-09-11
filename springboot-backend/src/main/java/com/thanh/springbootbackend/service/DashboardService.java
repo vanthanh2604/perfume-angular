@@ -7,6 +7,20 @@ import com.thanh.springbootbackend.service.serviceI.IDashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * DashboardService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Service
 public class DashboardService implements IDashboardService {
     @Autowired
@@ -15,21 +29,34 @@ public class DashboardService implements IDashboardService {
     private OutInfoRepository outInfoRepository;
     @Autowired
     private InputRepository inputRepository;
+
+    /**
+     * sum total output
+     */
     @Override
-    public Double sum_total_output() {
+    public Double sumTotalOutput() {
         return outputRepository.totalByOutput();
     }
 
+    /**
+     * count perfume output
+     */
     @Override
-    public int count_perfume_output() {
+    public int countPerfumeOutput() {
         return outInfoRepository.countByPerfumeOutPut();
     }
 
+    /**
+     * count output
+     */
     @Override
-    public int count_output() {
+    public int countOutput() {
         return outputRepository.countOutput();
     }
 
+    /**
+     * profit
+     */
     @Override
     public double profit() {
         return outInfoRepository.profit();

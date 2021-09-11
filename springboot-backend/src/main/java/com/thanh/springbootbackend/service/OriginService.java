@@ -8,12 +8,30 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * OriginService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Service
 public class OriginService implements IOriginService {
     @Autowired
     private OriginRepository originRepository;
+
+    /**
+     * get all origin
+     */
     @Override
-    public List<Origin> get_All() {
+    public List<Origin> getAll() {
         return (List<Origin>) originRepository.findAll();
     }
 }

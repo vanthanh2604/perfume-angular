@@ -13,6 +13,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * InputInfoService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Service
 public class InputInfoService implements IInputInfoService {
     @Autowired
@@ -21,11 +35,20 @@ public class InputInfoService implements IInputInfoService {
     private PerfumeRepositorry perfumeRepositorry;
     @Autowired
     private InputRepository inputRepository;
+
+    /**
+     * get all input info by id input
+     */
     @Override
-    public List<InputInfo> get_ALl_InputInfo_by_idInput(Long id) {
+    public List<InputInfo> getALlInputInfoByIdInput(Long id) {
         return inputInfoRepository.findAllByInputId(id);
     }
 
+    /**
+     * add input info
+     * @param infoDto
+     * @param input
+     */
     @Override
     public void addInputInfo(List<InputInfoModel> infoDto, Input input) {
         double total=0;
@@ -41,7 +64,6 @@ public class InputInfoService implements IInputInfoService {
             perfume.setAmount(perfume.getAmount()+item.getAmount());
             perfume.setPrice(item.getPrice());
             perfumeRepositorry.save(perfume);
-
             total=total+(item.getAmount()*item.getPrice());
         }
         input.setTotal(total);

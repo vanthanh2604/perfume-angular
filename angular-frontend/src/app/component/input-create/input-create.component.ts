@@ -8,6 +8,7 @@ import { InputService } from 'src/app/service/input-service/input.service';
 import { PerfumeService } from 'src/app/service/perfume-service/perfume.service';
 import { ToastService } from 'src/app/service/toast-service/toast-service';
 import { ValidateService } from '../validate-message/validate.service';
+import { Message } from 'src/app/service/message/message.service';
 
 @Component({
   selector: 'app-input-create',
@@ -27,6 +28,7 @@ export class InputCreateComponent implements OnInit {
     private perfumeService: PerfumeService,
     private toastService: ToastService,
     private inputService: InputService,
+    private router: Router,
     private fb: FormBuilder) {
     this.form = this.fb.group({
       id: ['', [Validators.required]],
@@ -48,6 +50,11 @@ export class InputCreateComponent implements OnInit {
       console.log(response)
     })
   }
+
+  get f() {
+    return this.form.controls;
+  }
+
   onSubmit() {
     if (this.form.valid) {//kiểm tra form
       this.item = this.form.value
@@ -56,16 +63,15 @@ export class InputCreateComponent implements OnInit {
           this.item.perfume_name = response.result.perfume_name
           const per = this.list.find(item => item.id == this.item.id)
           if (per) {
-            alert("Đã thêm sản phẩm này rồi")
+            this.toastService.warning(Message.msgExist);
           }
           else {
             this.total = this.total + (this.item.amount * this.item.price)
             this.list.push(this.item)
+       
           }
-        }
-        else {
-          this.toastService.show("Mã sản phẩm không đúng!", { classname: 'bg-danger text-light', delay: 4500 });
-
+        }else {
+          this.toastService.warning(Message.msgIncorrect);
         }
       })
     }
@@ -74,7 +80,6 @@ export class InputCreateComponent implements OnInit {
 
   deletePerfume(code: any) {
     this.total = this.total - (code.amount * code.price)
-    console.log("thông tin ", code);
     this.list = this.list.filter(item => item !== code);
   }
 
@@ -84,24 +89,16 @@ export class InputCreateComponent implements OnInit {
       if (this.list.length != 0) {
         this.inputService.inputCreate(this.suplierId, this.list).subscribe((response: any) => {
           if (response.status == 200) {
-            this.toastService.show("Thành công!", { classname: 'bg-success text-light', delay: 4500 });
-            this.ngOnInit();
-            this.list = []
-            this.total = 0
+            this.toastService.show("success");
+            this.router.navigateByUrl("/input");
           } else {
-            this.toastService.show("Không thành công!", { classname: 'bg-danger text-light', delay: 5000 });
+            this.toastService.show("fail");
           }
         })
-      } else { this.toastService.show("Không thể tạo phiếu nhập không có sản phẩm nào!", { classname: 'bg-danger text-light', delay: 5000 }); }
-    } else { this.toastService.show("Chưa chọn nhà cung cấp!", { classname: 'bg-danger text-light', delay: 5000 }) }
+      } else { this.toastService.warning(Message.msgInputInfo); }
+    } else { this.toastService.warning(Message.msgSuplier) }
   }
 
-
-
-  FILTER = /[^0-9]/g;
-  formatInput(input: HTMLInputElement) {
-    input.value = input.value.replace(this.FILTER, '');
-  }
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       console.log(field);

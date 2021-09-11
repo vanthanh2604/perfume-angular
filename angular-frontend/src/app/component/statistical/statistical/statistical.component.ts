@@ -14,7 +14,7 @@ export class StatisticalComponent implements OnInit {
   revenue_By_Month: Array<any>[] = []
   page = 1;
   pageSize = 5;
-  collectionSize:number
+  collectionSize: number
   constructor(private statisticalService: StatisticalService, private router: Router,) { }
 
   ngOnInit(): void {
@@ -23,23 +23,23 @@ export class StatisticalComponent implements OnInit {
   }
   getStatistical() {
     this.statisticalService.getStatistical().subscribe((response: any) => {
-      if(response.status==200){
+      if (response.status == 200) {
         this.revenue_By_Perfume = response.result
-        this.collectionSize=this.revenue_By_Perfume.length
-      }else{
+        this.collectionSize = this.revenue_By_Perfume.length
+      } else {
         alert("Lỗi")
       }
     })
-  } 
+  }
   getStatisticalMonth() {
     this.statisticalService.getStatisticalMonth().subscribe((response: any) => {
-      if(response.status==200){
-      this.revenue_By_Month = response.result
-      }else{
+      if (response.status == 200) {
+        this.revenue_By_Month = response.result
+      } else {
         alert("Lỗi")
       }
       for (let item of this.revenue_By_Month) {
-         const moth='Tháng '+ item[0]
+        const moth = 'Tháng ' + item[0]
         this.month.push(moth)
         this.total.push(item[2])
         this.revenue.push(item[3])
@@ -60,7 +60,7 @@ export class StatisticalComponent implements OnInit {
     }
   };
   // Biểu đồ thống kê theo tháng
-  month:any[] = []
+  month: any[] = []
   total: any = []
   revenue: any[] = []
   public barChartLabels: Label[] = this.month;
@@ -68,12 +68,12 @@ export class StatisticalComponent implements OnInit {
   public barChartLegend = true;
 
   public barChartData: ChartDataSets[] = [
-    
+
     { data: this.total, label: 'Tiền thu về' },
     { data: this.revenue, label: 'Tiền lợi nhuận' }
   ];
-   // events
-   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  // events
+  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
     console.log(event, active);
   }
 
@@ -82,9 +82,9 @@ export class StatisticalComponent implements OnInit {
   }
 
   public update(): void {
-    this.month=[]
-    this.total=[]
-    this.revenue=[]
+    this.month = []
+    this.total = []
+    this.revenue = []
     this.getStatisticalMonth();
   }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Input } from 'src/app/model/input/input';
 import { InputInfo } from 'src/app/model/inputInfo/input-info';
 import { InputService } from 'src/app/service/input-service/input.service';
+import { Message } from 'src/app/service/message/message.service';
 
 @Component({
   selector: 'app-input-detail',

@@ -12,6 +12,6 @@ export class Perfume {
     brandId: number; 
     originId: number; 
     brand: Brand;
-    orrigin: Origin
+    origin: Origin
     suplierId:number;
 }

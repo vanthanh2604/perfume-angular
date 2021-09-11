@@ -13,6 +13,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * OutputInfoService
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Service
 public class OutputInfoService implements IOutputInfoService {
     @Autowired
@@ -22,16 +36,29 @@ public class OutputInfoService implements IOutputInfoService {
     @Autowired
     private OutputRepository outputRepository;
 
+    /**
+     * get all output detail by id output
+     * @param id
+     */
     @Override
-    public List<OutputInfo> get_ALl_OutputInfo_by_idInput(Long id) {
+    public List<OutputInfo> getALlOutputInfoByIdInput(Long id) {
         return outInfoRepository.findAllByOutputId(id);
     }
 
+    /**
+     * create output info
+     * @param outputInfo
+     */
     @Override
     public void saveOuputInfo(OutputInfo outputInfo) {
         outInfoRepository.save(outputInfo);
     }
 
+    /**
+     * create output info
+     * @param list
+     * @param output
+     */
     @Override
     public void addOutputInfo(List<InputInfoModel> list, Output output) {
         double total = 0;
@@ -46,7 +73,6 @@ public class OutputInfoService implements IOutputInfoService {
             //======cập nhật lại số lượng sản phẩm==========
             perfume.setAmount(perfume.getAmount() - item.getAmount());
             perfumeRepositorry.save(perfume);
-            //======total=========
             total = total + (item.getAmount() * item.getPrice());
         }
         output.setTotal(total);

@@ -7,6 +7,20 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * Suplier
+ * Version 1.0
+ *
+ * Date: 01-09-2021
+ *
+ * Copyright
+ *
+ * Modification Logs:
+ *  DATE                 AUTHOR          DESCRIPTION
+ *  -----------------------------------------------------------------------
+ *   01-09-2021         ThanhNV80            Create
+ */
+
 @Entity
 public class Suplier {
     @Id
