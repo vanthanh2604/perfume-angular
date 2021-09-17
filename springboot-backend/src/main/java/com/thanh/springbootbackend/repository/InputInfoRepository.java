@@ -23,9 +23,19 @@ import java.util.List;
 
 @Repository
 public interface InputInfoRepository extends CrudRepository<InputInfo, Long> {
+
+    /**
+     * find all by input id
+     * @param id
+     * @return
+     */
     @Query("SELECT inp FROM InputInfo inp WHERE inp.input.id=?1")
     List<InputInfo>findAllByInputId(Long id);
-    // Lấy tổng số lượng sản phẩm đã nhập
+
+    /**
+     * sum by amount
+     * @return
+     */
     @Query(nativeQuery=true,value="select sum(amount) from input_info")
     int sumByAmount();
 }

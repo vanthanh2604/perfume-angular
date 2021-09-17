@@ -31,6 +31,7 @@ public class StatisticalController {
 
     /**
      * statistical
+     * @return
      */
     @GetMapping("statistical")
     public Map<String, Object> getStatistical(){
@@ -39,6 +40,7 @@ public class StatisticalController {
 
     /**
      * statistical month
+     * @return
      */
     @GetMapping("statistical/month")
     public Map<String, Object> getStatisticalMonth(){
@@ -47,6 +49,7 @@ public class StatisticalController {
 
     /**
      * statistical inventory
+     * @return
      */
     @GetMapping("statistical/inventory")
     public Map<String, Object> getStatisticalInventory(){

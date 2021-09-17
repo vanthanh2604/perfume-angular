@@ -48,6 +48,11 @@ public class AuthController {
     @Autowired
     private JwtUtils jwtUtils;
 
+    /**
+     * authenticate user
+     * @param loginRequest
+     * @return
+     */
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(

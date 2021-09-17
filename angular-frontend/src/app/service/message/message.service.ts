@@ -7,5 +7,6 @@ export const Message ={
     msgInputInfo:"Không thể tạo phiếu khi không có sản phẩm nào!",
     msgSuplier:"Chưa chọn nhà cung cấp!",
     msgOverQuantity:"Nhập quá số lượng trong kho!",
-    msgPerfumeExist: "Tên sản phẩm đã tồn tại!"
+    msgPerfumeExist: "Tên sản phẩm đã tồn tại!",
+    msgChoosingTheWrong:"Vui lòng chọn đúng sản phẩm"
 }

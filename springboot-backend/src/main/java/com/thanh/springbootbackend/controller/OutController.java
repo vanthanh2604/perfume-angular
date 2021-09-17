@@ -40,16 +40,18 @@ public class OutController {
     private IOutputInfoService outputInfoService;
 
     /**
-     * get all outputs
+     * get all output
+     * @return
      */
     @GetMapping("outputs")
-    public List<Output> getAllInput() {
+    public List<Output> getAllOutput() {
         return outputService.getAllOutput();
     }
 
     /**
      * get output by id
      * @param id
+     * @return
      */
     @GetMapping("output/{id}")
     public Map<String, Object> getOutput(@PathVariable Long id) {
@@ -68,6 +70,7 @@ public class OutController {
     /**
      * get output detail
      * @param id
+     * @return
      */
     @GetMapping("output-details/{id}")
     public Map<String, Object> getOutputDetails(@PathVariable Long id) {
@@ -81,6 +84,7 @@ public class OutController {
     /**
      * create output
      * @param outputModel
+     * @return
      */
     @PostMapping("output")
     public Map<String, Object> create(@RequestBody OutputModel outputModel) {

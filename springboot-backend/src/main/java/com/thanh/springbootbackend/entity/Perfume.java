@@ -61,7 +61,6 @@ public class Perfume {
 
     public Perfume() {
     }
-
     public Origin getOrigin() {
         return origin;
     }

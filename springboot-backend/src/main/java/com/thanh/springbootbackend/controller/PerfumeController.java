@@ -46,6 +46,7 @@ public class PerfumeController {
 
     /**
      * get all perfume
+     * @return
      */
     @GetMapping("perfumes")
     public List<Perfume> getAllPerfume() {
@@ -54,6 +55,7 @@ public class PerfumeController {
 
     /**
      * get all perfume stocking
+     * @return
      */
     @GetMapping("perfumes/stocking")
     public List<Perfume> getAllPerfumeStocking() {
@@ -62,6 +64,7 @@ public class PerfumeController {
 
     /**
      * get all brand
+     * @return
      */
     @GetMapping("brand")
     public List<Brand> getAllBrand() {
@@ -70,6 +73,7 @@ public class PerfumeController {
 
     /**
      * get all origin
+     * @return
      */
     @GetMapping("origin")
     public List<Origin> getAllOrigin() {
@@ -77,8 +81,10 @@ public class PerfumeController {
     }
 
     /**
-     * create perfume
+     * create new perfume
      * @param perfumeModel
+     * @param e
+     * @return
      */
     @PostMapping("perfume")
     public Map<String, Object> createPerfume(@Valid @RequestBody PerfumeModel perfumeModel, Errors e) {
@@ -108,6 +114,7 @@ public class PerfumeController {
     /**
      * get perfume by id
      * @param id
+     * @return
      */
     @GetMapping("perfume/{id}")
     public Map<String, Object> getPerfumeById(@PathVariable String id) {
@@ -129,8 +136,9 @@ public class PerfumeController {
     }
 
     /**
-     * get perfume code
+     * get perfume by code
      * @param id
+     * @return
      */
     @GetMapping("perfume-code/{id}")
     public Map<String, Object> getPerfumeByCode(@PathVariable String id) {
@@ -152,9 +160,36 @@ public class PerfumeController {
     }
 
     /**
+     * get perfume by name
+     * @param name
+     * @return
+     */
+    @GetMapping("perfume-name/{name}")
+    public Map<String, Object> getPerfumeByName(@PathVariable String name) {
+        Map<String, Object> map = new HashMap<>();
+        try {
+            Perfume p = perfumeService.getPerfumeByName(name);
+            if (p == null) {
+                map.put("status", false);
+                return map;
+            } else {
+                map.put("result", p);
+    map.put("status", 200);
+            }
+        } catch (Exception e)
+        {
+            map.put("status", 500);
+    }
+    return map;
+
+    }
+
+    /**
      * update perfume
-     * @param perfumeModel
      * @param id
+     * @param perfumeModel
+     * @param e
+     * @return
      */
     @PutMapping("perfume/{id}")
     public Map<String, Object> updatePerfume(@PathVariable String id, @Valid @RequestBody PerfumeModel perfumeModel,Errors e) {
@@ -184,6 +219,7 @@ public class PerfumeController {
     /**
      * delete perfume
      * @param id
+     * @return
      */
     @DeleteMapping("perfume/{id}")
     public Map<String, Object> deletePerfume(@PathVariable String id) {
@@ -203,5 +239,4 @@ public class PerfumeController {
         }
         return map;
     }
-
 }

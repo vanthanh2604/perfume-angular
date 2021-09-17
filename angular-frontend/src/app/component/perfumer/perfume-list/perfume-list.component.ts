@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfirmBoxInitializer } from '@costlydeveloper/ngx-awesome-popup';
@@ -10,18 +10,18 @@ import { PerfumeService } from 'src/app/service/perfume-service/perfume.service'
 import { ToastService } from 'src/app/service/toast-service/toast-service';
 
 
-function getAlertConfig(): TooltipConfig {
-  return Object.assign(new TooltipConfig(), {
-    placement: 'left',
-    container: 'body',
-    delay: 200
-  });
-}
+// function getAlertConfig(): TooltipConfig {
+//   return Object.assign(new TooltipConfig(), {
+//     placement: 'bottom',
+//     container: 'body',
+//     delay: 200
+//   });
+// }
 @Component({
   selector: 'app-perfume-list',
   templateUrl: './perfume-list.component.html',
   styleUrls: ['./perfume-list.component.css'],
-  providers: [{ provide: TooltipConfig, useFactory: getAlertConfig }]
+  // providers: [{ provide: TooltipConfig, useFactory: getAlertConfig }]
 })
 export class PerfumeListComponent implements OnInit {
   perfumes: Perfume[];
@@ -31,6 +31,7 @@ export class PerfumeListComponent implements OnInit {
   pageSize = 6;
   collectionSize = 0;
   FILTER = /[^0-9]/g;
+  @ViewChild('input') input: ElementRef;
   constructor(
     private perfumeService: PerfumeService,
     private router: Router,
@@ -55,8 +56,7 @@ export class PerfumeListComponent implements OnInit {
     const result: Perfume[] = [];
     key = key.trim();
     for (const perfume of this.perfumess) {
-      if (perfume.id.toLowerCase().indexOf(key.toLowerCase()) !== -1
-        || perfume.perfume_name.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      if (perfume.perfume_name.toLowerCase().indexOf(key.toLowerCase()) !== -1
         || perfume.brand.brand_name.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
         result.push(perfume)
       }
@@ -134,5 +134,28 @@ export class PerfumeListComponent implements OnInit {
   }
   chang(event: any) {
     this.page = 1;
+  }
+
+  //===========sort===============
+  key:string='perfume_name'
+  reverse:boolean=false
+  sort(key:any){
+    this.reverse=!this.reverse
+    this.key=key
+    
+  }
+
+  orderHeader:String=''
+  isDescOrder:boolean=true
+  sortName(headerName:any){
+    this.isDescOrder=!this.isDescOrder
+    this.orderHeader=headerName
+    console.log(this.orderHeader)
+  }
+
+  onKey(event: any) {
+    if (event.key === 'Tab') {
+      this.input.nativeElement.focus();
+    }
   }
 }

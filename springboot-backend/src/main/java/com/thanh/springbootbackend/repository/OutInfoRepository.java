@@ -38,10 +38,14 @@ public interface OutInfoRepository extends CrudRepository<OutputInfo,Long> {
             "   from  output_info as opi right join perfume as p on opi.perfume_id=p.id;")
     Double profit ();
 // doanh thu theo sản phẩm đã bán
-    @Query(nativeQuery=true, value="   select per.id,per.perfume_name,\n" +
-            "\t\t SUM(op.output_price*op.amount) as revenue,SUM((op.output_price*op.amount)-(per.price*op.amount)) as profit, Sum(op.amount) as amount" +
-            "   from perfume as per join output_info as op on per.id=op.perfume_id\n" +
-            "   GROUP BY op.perfume_id;")
+//    @Query(nativeQuery=true, value="   select per.id,per.perfume_name,\n" +
+//            "\t\t SUM(op.output_price*op.amount) as revenue,SUM((op.output_price*op.amount)-(per.price*op.amount)) as profit, Sum(op.amount) as amount" +
+//            "   from perfume as per join output_info as op on per.id=op.perfume_id\n" +
+//            "   GROUP BY op.perfume_id;")
+    @Query(nativeQuery=true, value=" select per.id,per.perfume_name ,avg(op.output_price),SUM(op.output_price*op.amount) as revenue,\n" +
+            "  SUM((op.output_price*op.amount)-(per.price*op.amount)) as profit, Sum(op.amount) as amount\n" +
+            "           from perfume as per join output_info as op on per.id=op.perfume_id\n" +
+            "            GROUP BY op.perfume_id;")
     List<?> revenue_by_perfume ();
     // doanh thu theo tháng
     @Query(nativeQuery=true, value="select month(o.date_output) as  \"Tháng\" , sum(opi.amount) as \"Số lượng bán\",sum(opi.output_price * opi.amount) as \"Tổng tiền xuất\",sum((opi.output_price * opi.amount)-(per.price * opi.amount)) as \"Lợi nhuận\"\n" +

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InputDto } from 'src/app/model/inputDto/input-dto';
@@ -18,11 +18,11 @@ import { Message } from 'src/app/service/message/message.service';
 export class InputCreateComponent implements OnInit {
   supliers: Suplier[]
   suplierId: number
-
+  @ViewChild('input') input: ElementRef;
   item: InputDto
   perfumes: Perfume[]
   list: Array<InputDto> = []
-  form: any
+  form: FormGroup
   total = 0;
   constructor(
     private perfumeService: PerfumeService,
@@ -31,9 +31,9 @@ export class InputCreateComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder) {
     this.form = this.fb.group({
-      id: ['', [Validators.required]],
-      amount: ['', [Validators.required, ValidateService.numberValidator]],
+      perfume_name: ['', [Validators.required]],
       price: ['', [Validators.required, ValidateService.numberValidator]],
+      amount: ['', [Validators.required, ValidateService.numberValidator]]
     });
   }
 
@@ -58,9 +58,11 @@ export class InputCreateComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {//kiểm tra form
       this.item = this.form.value
-      this.perfumeService.getPerfumesByCode(this.item.id).subscribe((response: any) => {
-        if (response.status == true) {// kiểm tra có per_code đúng không
-          this.item.perfume_name = response.result.perfume_name
+      console.log(this.item)
+      this.perfumeService.getPerfumesByName(this.item.perfume_name).subscribe((response: any) => {
+        if (response.status == 200) {// kiểm tra có perfume đúng không
+          this.item.id = response.result.id
+          console.log(response.result)
           const per = this.list.find(item => item.id == this.item.id)
           if (per) {
             this.toastService.warning(Message.msgExist);
@@ -68,7 +70,6 @@ export class InputCreateComponent implements OnInit {
           else {
             this.total = this.total + (this.item.amount * this.item.price)
             this.list.push(this.item)
-       
           }
         }else {
           this.toastService.warning(Message.msgIncorrect);
@@ -109,5 +110,11 @@ export class InputCreateComponent implements OnInit {
         this.validateAllFormFields(control);
       }
     });
+  }
+  
+  onKey(event: any) {
+    if (event.key === 'Tab') {
+      this.input.nativeElement.focus();
+    }
   }
 }

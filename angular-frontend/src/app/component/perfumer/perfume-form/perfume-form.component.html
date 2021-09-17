@@ -11,16 +11,17 @@
             </button>
         </div> -->
         <div class="card-body">
-            <form [formGroup]="infoform" (ngSubmit)="onSubmit()">
+            <form appAutoFocusDirective #form [formGroup]="infoform" (ngSubmit)="onSubmit()">
                 <div class="form-row">
                     <div class="col-md-12 mb-1">
                         <div class="form-group">
                             <div class="form-group">
                                 <label for="name">Tên sản phẩm <i class="note">*</i></label>
                                 <input appAutoFocusDirective #input formControlName="perfume_name" id="perfume_name" class="form-control"
-                                    placeholder="Nhập tên sản phẩm" type="text" name="perfume_name" [ngClass]="{
-                                        'is-valid': (f?.perfume_name.valid && (f?.perfume_name.touched)),
-                                        'is-invalid': (f?.perfume_name.invalid && (f?.perfume_name.touched))}">
+                                    placeholder="Nhập tên sản phẩm" type="text" name="perfume_name" autocomplete = "off"
+                                     [ngClass]="{
+                                        'is-valid': (f?.perfume_name?.valid && (f?.perfume_name?.touched)),
+                                        'is-invalid': (f?.perfume_name?.invalid && (f?.perfume_name?.touched))}">
                                 <control-message field="Tên sản phẩm" [control]="infoform.get('perfume_name')">
                                 </control-message>
                             </div>
@@ -40,14 +41,14 @@
                         <label for="brand">Xuất xứ <i class="note">*</i></label>
                         <select  *ngIf="idPerfume!=undefined" id="originId" name="originId" formControlName="originId"
                             class="form-control" [ngClass]="{
-                                'is-valid': (f?.originId.valid && (f?.originId.touched)),
-                                'is-invalid': (f?.originId.invalid && (f?.originId.touched))}">
+                                'is-valid': (f?.originId?.valid && (f?.originId?.touched)),
+                                'is-invalid': (f?.originId?.invalid && (f?.originId?.touched))}">
                             <option *ngFor="let item of origins" [value]="item.id">{{item.origin_name}}</option>
                         </select>
                         <select  *ngIf="idPerfume==undefined" id="originId" name="originId" formControlName="originId"
                             class="form-control" [ngClass]="{
-                                'is-valid': (f?.originId.valid && (f?.originId.touched)),
-                                'is-invalid': (f?.originId.invalid && (f?.originId.touched))}">
+                                'is-valid': (f?.originId?.valid && (f?.originId?.touched)),
+                                'is-invalid': (f?.originId?.invalid && (f?.originId?.touched))}">
                             <option value="">---Vui lòng chọn---</option>
                             <option *ngFor="let item of origins" [value]="item.id">{{item.origin_name}}</option>
                         </select>
@@ -57,14 +58,14 @@
                         <label for="brand">Thương hiệu <i class="note">*</i></label>
                         <select *ngIf="idPerfume!=undefined" id="brandId" name="brandId" formControlName="brandId"
                             class="form-control"[ngClass]="{
-                                'is-valid': (f?.brandId.valid && (f?.brandId.touched)),
-                                'is-invalid': (f?.brandId.invalid && (f?.brandId.touched))}">
+                                'is-valid': (f?.brandId?.valid && (f?.brandId?.touched)),
+                                'is-invalid': (f?.brandId?.invalid && (f?.brandId?.touched))}">
                             <option *ngFor="let item of brands" [value]="item.id">{{item.brand_name}}</option>
                         </select>
                         <select *ngIf="idPerfume==undefined" id="brandId" name="brandId" formControlName="brandId"
                             class="form-control"[ngClass]="{
-                                'is-valid': (f?.brandId.valid && (f?.brandId.touched)),
-                                'is-invalid': (f?.brandId.invalid && (f?.brandId.touched))}">
+                                'is-valid': (f?.brandId?.valid && (f?.brandId?.touched)),
+                                'is-invalid': (f?.brandId?.invalid && (f?.brandId?.touched))}">
                             <option value="">---Vui lòng chọn---</option>
                             <option *ngFor="let item of brands" [value]="item.id">{{item.brand_name}}</option>
                         </select>
@@ -81,8 +82,8 @@
                                 placeholder="Nhập mô tả sản phẩm" type="text" name="description" required> -->
                             <textarea formControlName="description" id="description" class="form-control" rows="4"
                                 cols="50" name="description" [ngClass]="{
-                                    'is-valid': (f?.description.valid && (f?.description.touched)),
-                                    'is-invalid': (f?.description.invalid && (f?.description.touched))}">
+                                    'is-valid': (f?.description?.valid && (f?.description?.touched)),
+                                    'is-invalid': (f?.description?.invalid && (f?.description?.touched))}">
                             </textarea>
                             <control-message field="Mô tả" [control]="infoform.get('description')"></control-message>
                         </div>
@@ -91,13 +92,16 @@
                 </div>
                 <div class="form-group text-right">
                     <button *ngIf="idPerfume==undefined" class="btn btn-success ml-2" type="submit">Lưu</button>
-                    <button *ngIf="idPerfume!=undefined" class="btn btn-success ml-2" [disabled]="!infoform.valid"
-                        type="submit">Cập nhật</button>
+                    <button *ngIf="idPerfume!=undefined" class="btn btn-success ml-2"type="submit">Cập nhật</button>
                     <button (keydown.Tab)="onKey($event);false;" type="button" class="btn btn-danger ml-2" routerLink="/perfumes" >Hủy</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
+<!-- <form #form="ngForm" (ngSubmit)="submit()">
+    <label>name</label>
+    <input [(ngModel)]="name" name="name"/>
+    <button type="submit">Submit</button>
+  </form> -->
 <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

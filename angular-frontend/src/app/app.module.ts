@@ -1,12 +1,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { PerfumeDetailComponent } from './component/perfumer/perfume-detail/perfume-detail.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastsContainer } from './component/toast-global/toast-container.component';
@@ -24,11 +24,13 @@ import { ChartsModule } from 'ng2-charts';
 import { InventoryStatisticsComponent } from './component/statistical/inventory-statistics/inventory-statistics.component';
 import { ControlMessageComponent } from './component/validate-message/control-message.component';
 import { NgxCurrencyModule } from "ngx-currency";
-import { 
-  NgxAwesomePopupModule, 
-  ConfirmBoxConfigModule 
+import {
+  NgxAwesomePopupModule,
+  ConfirmBoxConfigModule
 } from '@costlydeveloper/ngx-awesome-popup';
 import { AutoFocusDirectiveDirective } from './component/perfumer/perfume-form/auto-focus-directive.directive';
+import { Ng2OrderModule } from 'ng2-order-pipe';
+import { CanDeactivateGuard } from './deactivate/can-deactivate/can-deactivate.guard';
 
 @NgModule({
   declarations: [
@@ -36,12 +38,17 @@ import { AutoFocusDirectiveDirective } from './component/perfumer/perfume-form/a
     PerfumeListComponent,
     PerfumeDetailComponent,
     PerfumeFormComponent,
-    ToastsContainer, 
+    ToastsContainer,
     InputsComponent,
-    InputDetailComponent, 
-    OutputDetailComponent, 
-    OutputCreateComponent, ControlMessageComponent,
-    InputCreateComponent, StatisticalComponent, DashboardComponent, InventoryStatisticsComponent, AutoFocusDirectiveDirective
+    InputDetailComponent,
+    OutputDetailComponent,
+    OutputCreateComponent,
+    ControlMessageComponent,
+    InputCreateComponent,
+    StatisticalComponent,
+    DashboardComponent,
+    InventoryStatisticsComponent,
+    AutoFocusDirectiveDirective
   ],
   imports: [
     TooltipModule,
@@ -51,13 +58,14 @@ import { AutoFocusDirectiveDirective } from './component/perfumer/perfume-form/a
     FormsModule,
     ReactiveFormsModule,
     Ng2SearchPipeModule,
-    NgxPaginationModule,ChartsModule,
+    Ng2OrderModule,
+    NgxPaginationModule, ChartsModule,
     RouterModule.forRoot([
       { path: 'perfumes', component: PerfumeListComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: '', redirectTo:'dashboard', pathMatch:'full'},
-      { path: 'create', component: PerfumeFormComponent },
-      { path: 'edit/:id', component: PerfumeFormComponent},
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'create', component: PerfumeFormComponent,canDeactivate: [CanDeactivateGuard] },
+      { path: 'edit/:id', component: PerfumeFormComponent },
       { path: 'detail/:id', component: PerfumeDetailComponent },
       { path: 'input', component: InputsComponent },
       { path: 'input-detail/:id', component: InputDetailComponent },
@@ -73,7 +81,7 @@ import { AutoFocusDirectiveDirective } from './component/perfumer/perfume-form/a
     ConfirmBoxConfigModule.forRoot(),
     NgbModule,
   ],
-  providers: [],
+  providers: [CanDeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

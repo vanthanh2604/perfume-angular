@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-12 col-md-4">
                 <form>
-                    <input type="search" id="exampleFormControlInput5" (ngModelChange)="search(key.value)"
+                    <input appAutoFocusDirective type="search" id="exampleFormControlInput5" (ngModelChange)="search(key.value)"
                         #key="ngModel" name="key" ngModel placeholder="Nhập từ khóa cần tìm kiếm"
                         class="form-control form-control-underlined">
 
@@ -95,13 +95,14 @@
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-4">
-                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="chang($event)">
-                    <option [ngValue]="6">6 sản phẩm</option>
-                    <option [ngValue]="8">8 sản phẩm</option>
-                    <option [ngValue]="10">10 sản phẩm</option>
+                <label>Hiển thị</label>
+                <select style="margin-left: 7px; width: 60px" [(ngModel)]="pageSize" (change)="chang($event)">
+                    <option [value]="6">6</option>
+                    <option [value]="8">8</option>
+                    <option [value]="10">10</option>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-4 text-right">
+            <div class="col-sm-12 col-md-5 text-right canhtren">
                 <label *ngIf="page==1&&(page*pageSize)<collectionSize">Hiển thị: 1 - {{page*pageSize}} trên
                     {{collectionSize}} sản phẩm</label>
                 <label *ngIf="page!=1&&(page*pageSize)<collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
@@ -113,7 +114,7 @@
                 <label *ngIf="page==1&&(page*pageSize)>collectionSize">Hiển thị: 1 - {{collectionSize}} trên
                     {{collectionSize}} sản phẩm</label>
             </div>
-            <div class="col-sm-12 col-md-4 float-right">
+            <div class="col-sm-12 col-md-3 float-right">
                 <div class="dataTables_paginate paging_simple_numbers float-right" style="padding: 0;">
                     <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize"
                         [boundaryLinks]="true">

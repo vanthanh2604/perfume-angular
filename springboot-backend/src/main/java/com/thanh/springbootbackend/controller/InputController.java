@@ -38,10 +38,11 @@ public class InputController {
     @Autowired
     private IInputInfoService inputInfoService;
     @Autowired
-    private ISuplierService suplierService;
+    private ISuplierService supplierService;
 
     /**
-     * get all inpur
+     * get all input
+     * @return
      */
     @GetMapping("inputs")
     public List<Input> getAllInput() {
@@ -51,9 +52,10 @@ public class InputController {
     /**
      * get input by id
      * @param id
+     * @return
      */
     @GetMapping("input/{id}")
-    public Map<String, Object> getInpuId(@PathVariable Long id) {
+    public Map<String, Object> getInputId(@PathVariable Long id) {
         Map<String, Object> map = new HashMap<>();
         try {
             Input input = inputService.getById(id);
@@ -71,8 +73,9 @@ public class InputController {
     }
 
     /**
-     * get input detail
+     * get input detail by input id
      * @param id
+     * @return
      */
     @GetMapping("input-details/{id}")
     public Map<String, Object> getInputInfo(@PathVariable Long id) {
@@ -87,13 +90,14 @@ public class InputController {
     }
 
     /**
-     * get all suppliers
+     * get all supplier
+     * @return
      */
     @GetMapping("supliers")
     public Map<String, Object> getAllSupplier() {
         Map<String, Object> map = new HashMap<>();
         try {
-            List<Suplier> supliers = suplierService.getAllsupliers();
+            List<Suplier> supliers = supplierService.getAllsupliers();
             map.put("status", 200);
             map.put("result", supliers);
         } catch (Exception e) {
@@ -112,8 +116,10 @@ public class InputController {
     public Map<String, Object> create(@RequestBody List<InputInfoModel> list, @PathVariable long id) {
         Map<String, Object> map = new HashMap<>();
         try {
-            Input input = inputService.createInput(id);//Tạo phiếu nhập
-            inputInfoService.addInputInfo(list, input);// tạo chi tiết phiếu nhập
+            //Tạo phiếu nhập
+            Input input = inputService.createInput(id);
+            // tạo chi tiết phiếu nhập
+            inputInfoService.addInputInfo(list, input);
             map.put("result", list);
             map.put("status", 200);
         } catch (Exception ex) {

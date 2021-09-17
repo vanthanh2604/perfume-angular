@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { InputDto } from 'src/app/model/inputDto/input-dto';
 import { Output } from 'src/app/model/output/output';
@@ -21,26 +21,26 @@ export class OutputCreateComponent implements OnInit {
   perfume: Perfume
   list: Array<Perfume> = []
   output: Output;
-  form: any
+  form: FormGroup
   formCustomer: any
   total = 0;
-  // output = new Output();
-  selectedLevel: any
+  amount=0
+  @ViewChild('input') input: ElementRef;
   constructor(
     private perfumeService: PerfumeService,
     private router: Router,
     private toastService: ToastService,
     private outputService: OutputService,
     private fb: FormBuilder,
-    private confirmBoxSevice:ConfirmBoxSevice
+    private confirmBoxSevice: ConfirmBoxSevice
   ) {
-    
+
   }
   ngOnInit(): void {
     this.form = this.fb.group({
-      id: ["", [Validators.required, Validators.maxLength(12)]],
-      amount: ["", [Validators.required,ValidateService.numberValidator]],
-      price: ["", [Validators.required,ValidateService.numberValidator]],
+      perfume_name: ["", [Validators.required]],
+      amount: ["", [Validators.required, ValidateService.numberValidator]],
+      price: ["", [Validators.required, ValidateService.numberValidator]],
     });
     this.formCustomer = this.fb.group({
       customerName: ["", [Validators.required, Validators.maxLength(25)]],
@@ -52,56 +52,64 @@ export class OutputCreateComponent implements OnInit {
     })
   }
 
-  get fc(){
+  onKey(event: any) {
+    if (event.key === 'Tab') {
+      this.input.nativeElement.focus();
+    }
+  }
+
+  get fc() {
     return this.formCustomer.controls
   }
-  get f(){
+  get f() {
     return this.form.controls
   }
 
-  selected() {
-    this.perfume = this.form.value;
-    this.perfumeService.getPerfumesByCode(this.perfume.id).subscribe((response: any) => {
-      this.perfume.price = response.result.price
-      this.perfume.perfume_name = response.result.perfume_name
-      this.form.patchValue({price: this.perfume.price});
+  selected(name:any) {
+    this.perfumeService.getPerfumesByName(name).subscribe((response: any) => {
+      this.amount=response.result.amount
+      this.form.patchValue({ price: response.result.price });
     })
   }
 
   onSubmit() {
     if (this.form.valid) {//kiểm tra valid form
       this.perfume = this.form.value
-      this.perfumeService.getPerfumesByCode(this.perfume.id).subscribe((response: any) => {
-        this.perfume.perfume_name = response.result.perfume_name
-        const per = this.list.find(item => item.id == this.perfume.id)
-        if (per) {  //Kiểm tra sản phẩm đã được thêm trong vào details chưa
-          this.toastService.warning(Message.msgExist);
-        }
-        else {
-          if (this.perfume.amount <= response.result.amount) { // kiểm tra có quá số lượng hay không
-            if (this.perfume.price >= response.result.price) {
-              this.total = this.total + (this.perfume.amount * this.perfume.price)
-              this.list.push(this.perfume)
-              this.form.patchValue({amount: ""});
-              this.form.patchValue({price: ""});
-              this.form.reset()
-              
-            }
-            else {
-              const confirmBox = this.confirmBoxSevice.confirmBoxOutput();
-              confirmBox.openConfirmBox$().subscribe(resp => {
-                if (resp.Success == true) { 
-                  this.total = this.total + (this.perfume.amount * this.perfume.price)
-                  this.list.push(this.perfume)
-                  this.form.reset();
-                }})
-            }
+      this.perfumeService.getPerfumesByName(this.perfume.perfume_name).subscribe((response: any) => {
+        if (response.status == 200) {
+          this.perfume.id = response.result.id
+          const per = this.list.find(item => item.id == this.perfume.id)
+          if (per) {  //Kiểm tra sản phẩm đã được thêm trong vào details chưa
+            this.toastService.warning(Message.msgExist);
           }
           else {
-            this.toastService.warning(Message.msgOverQuantity);
+            if (this.perfume.amount <= response.result.amount) { // kiểm tra có quá số lượng hay không
+              if (this.perfume.price >= response.result.price) {
+                this.total = this.total + (this.perfume.amount * this.perfume.price)
+                this.list.push(this.perfume)
+                this.form.patchValue({ amount: "" });
+                this.form.patchValue({ price: "" });
+                this.form.reset()
+
+              }
+              else {
+                const confirmBox = this.confirmBoxSevice.confirmBoxOutput();
+                confirmBox.openConfirmBox$().subscribe(resp => {
+                  if (resp.Success == true) {
+                    this.total = this.total + (this.perfume.amount * this.perfume.price)
+                    this.list.push(this.perfume)
+                    this.form.reset();
+                  }
+                })
+              }
+            }
+            else {
+              this.toastService.warning(Message.msgOverQuantity);
+            }
           }
-        }
+        }else this.toastService.warning(Message.msgChoosingTheWrong);
       })
+
     }
     else { this.validateAllFormFields(this.form); }
   }
@@ -116,16 +124,16 @@ export class OutputCreateComponent implements OnInit {
     this.output.outputinfo = this.list
     console.log(this.output)
     if (this.formCustomer.valid) {//kiểm tra valid form
-        if (this.list.length != 0) {
-          this.outputService.outputCreate(this.output).subscribe((response: any) => {
-            if (response.status == 200) {
-              this.toastService.show("success");
-              this.router.navigateByUrl("/input");
-            } else {
-              this.toastService.show("fail");
-            }
-          })
-        } else { this.toastService.warning(Message.msgInputInfo) }
+      if (this.list.length != 0) {
+        this.outputService.outputCreate(this.output).subscribe((response: any) => {
+          if (response.status == 200) {
+            this.toastService.show("success");
+            this.router.navigateByUrl("/input");
+          } else {
+            this.toastService.show("fail");
+          }
+        })
+      } else { this.toastService.warning(Message.msgInputInfo) }
     }
     else { this.validateAllFormFields(this.formCustomer); }
 

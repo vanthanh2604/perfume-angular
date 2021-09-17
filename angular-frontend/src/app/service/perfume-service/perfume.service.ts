@@ -6,6 +6,7 @@ import { Perfume } from 'src/app/model/perfume/perfume';
 import { environment } from 'src/environments/environment';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,6 +25,10 @@ export class PerfumeService {
 
   getPerfumesById(id: number): Observable<Perfume>{
     return this.http.get<Perfume>(environment.baseUrl+'perfume/'+id);
+  }
+
+  getPerfumesByName(name: string): Observable<Perfume>{
+    return this.http.get<Perfume>(environment.baseUrl+'perfume-name/'+name);
   }
 
   getBrand(){

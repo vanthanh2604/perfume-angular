@@ -7,3 +7,12 @@
     text-overflow: ellipsis;
     /* vuot qa hien dau cham */
   }
+  .cursor{
+    cursor: pointer;
+  }
+  .canhtren{
+    padding-top: 6px;
+  }
+  :host >>> .tooltip-inner {
+    text-align: left;
+  }

@@ -9,19 +9,25 @@ import { PerfumeService } from 'src/app/service/perfume-service/perfume.service'
 import { ToastService } from 'src/app/service/toast-service/toast-service';
 import { Message } from 'src/app/service/message/message.service';
 import { ConfirmBoxSevice } from 'src/app/service/confirmBox/confirmBox.service';
+import { FormCanDeactivate } from 'src/app/deactivate/form-can-deactivate/form-can-deactivate';
 
 @Component({
   selector: 'app-perfume-form',
   templateUrl: './perfume-form.component.html',
   styleUrls: ['./perfume-form.component.css']
 })
-export class PerfumeFormComponent implements OnInit {
+export class PerfumeFormComponent extends FormCanDeactivate implements OnInit {
+  get form(): FormGroup {
+    return this.infoform;
+  }
   perfumeDto = new PerfumeDto();
   perfume = new Perfume();
   brands: Brand[];
   origins: Origin[];
-  infoform: any;
+  
   @ViewChild('input') input: ElementRef;
+
+  infoform: FormGroup;
   constructor(
     public toastService: ToastService,
     private perfumeService: PerfumeService,
@@ -29,16 +35,20 @@ export class PerfumeFormComponent implements OnInit {
     private router: Router,
     private confirmBoxSevice: ConfirmBoxSevice,private elementRef: ElementRef,
     private fb: FormBuilder) {
+    super();
+    
+  }
+  idPerfume = this.route.snapshot.params['id'];
+  // submit() {
+  //   console.log(this.form.submitted);
+  // }
+  ngOnInit(): void {
     this.infoform = this.fb.group({
       perfume_name: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(255)]],
       brandId: ['', [Validators.required]],
       originId: ['', [Validators.required]],
     });
-  }
-  idPerfume = this.route.snapshot.params['id'];
-
-  ngOnInit(): void {
     this.perfumeService.getBrand().subscribe((response: any) => {
       this.brands = response;
     })
@@ -100,7 +110,8 @@ export class PerfumeFormComponent implements OnInit {
           }
         })
       }
-    } else { this.validateAllFormFields(this.infoform); }
+    } else { 
+      this.validateAllFormFields(this.infoform); }
   }
   //========Thêm sản phẩm============
   addPerfume() {

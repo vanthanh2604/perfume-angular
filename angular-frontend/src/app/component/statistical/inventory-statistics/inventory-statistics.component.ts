@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { StatisticalService } from 'src/app/service/statistical-service/statistical.service';
 import { ToastService } from 'src/app/service/toast-service/toast-service';
-import { StatisticalService } from 'src/app/statistical-service/statistical.service';
+
 
 @Component({
   selector: 'app-inventory-statistics',

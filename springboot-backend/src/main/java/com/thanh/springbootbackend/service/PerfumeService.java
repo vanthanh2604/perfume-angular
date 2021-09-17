@@ -51,8 +51,8 @@ public class PerfumeService implements IPerfumeService {
         return perfumeRepositorry.findPerfumeByIdAndFlag(id);
     }
     @Override
-    public Perfume getPerfumeByName(String code) {
-        return perfumeRepositorry.findByCode(code);
+    public Perfume getPerfumeByName(String name) {
+        return perfumeRepositorry.findByName(name);
     }
 
     @Override

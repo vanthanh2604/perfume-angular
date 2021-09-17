@@ -1,11 +1,10 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[appAutoFocusDirective]'
 })
 export class AutoFocusDirectiveDirective {
 
-  @Input() public appAutoFocus: boolean;
   constructor(private el: ElementRef) {}
 
   public ngAfterContentInit() {
@@ -14,4 +13,12 @@ export class AutoFocusDirectiveDirective {
     },100);
   }
 
+
+  @HostListener('submit')
+  onFormSubmit() {
+    const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');
+    if (invalidControl) {
+      invalidControl.focus();  
+    }
+  }
 }

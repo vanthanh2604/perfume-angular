@@ -33,6 +33,7 @@ public class DashboardController {
 
     /**
      * dashboard revenue
+     * @return
      */
     @GetMapping("dashboard")
     public Map<String, Object> revenue(){
@@ -55,6 +56,7 @@ public class DashboardController {
 
     /**
      * count perfume output
+     * @return
      */
     @GetMapping("dashboard/countamount")
     public Map<String, Object> countPerfumeOutput(){

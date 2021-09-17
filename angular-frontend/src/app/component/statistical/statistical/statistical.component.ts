@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StatisticalService } from 'src/app/statistical-service/statistical.service';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
-
 import { Label } from 'ng2-charts';
+import { StatisticalService } from 'src/app/service/statistical-service/statistical.service';
 @Component({
   selector: 'app-statistical',
   templateUrl: './statistical.component.html',
@@ -14,7 +13,7 @@ export class StatisticalComponent implements OnInit {
   revenue_By_Month: Array<any>[] = []
   page = 1;
   pageSize = 5;
-  collectionSize: number
+  collectionSize = 0;
   constructor(private statisticalService: StatisticalService, private router: Router,) { }
 
   ngOnInit(): void {
@@ -86,5 +85,17 @@ export class StatisticalComponent implements OnInit {
     this.total = []
     this.revenue = []
     this.getStatisticalMonth();
+  }
+
+
+  selectPage(page: string) {
+    this.page = parseInt(page) || 1;
+  }
+  FILTER = /[^0-9]/g;
+  formatInput(input: HTMLInputElement) {
+    input.value = input.value.replace(this.FILTER, '');
+  }
+  chang(event: any) {
+    this.page = 1;
   }
 }
