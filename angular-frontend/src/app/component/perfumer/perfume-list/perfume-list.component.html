@@ -25,10 +25,10 @@
                     <th class="text-center">STT</th>
                     <!-- <th>Mã sản phẩm</th> -->
                     <th (click)="sortName('perfume_name')">Tên sản phẩm&nbsp;<i class="fa fa-sort"></i></th>
-                    <th (click)="sortName('brand_name')">Thương hiệu&nbsp;<i class="fa fa-sort"></i></th>
+                    <th >Thương hiệu</th>
                     <th (click)="sortName('amount')">Số lượng&nbsp;<i class="fa fa-sort"></i></th>
                     <th (click)="sortName('price')" class="text-center">Giá (VND)&nbsp;<i class="fa fa-sort"></i></th>
-                    <th (click)="sortName('description')" class="text-center">Mô tả&nbsp;<i class="fa fa-sort"></i></th>
+                    <th class="text-center">Mô tả</th>
                     <th class="text-center">Thao tác</th>
                 </tr>
             </thead>
@@ -78,18 +78,18 @@
             </select>
         </div>
         <div class="paging">
-            <div class="col-sm-12 col-md-5 text-right canhtren paging-display" style="display: contents;">
-                <label *ngIf="page==1&&(page*pageSize)<collectionSize && perfumes?.length!=0">Hiển thị: 1 - {{page*pageSize}} trên
+            <div class="col-sm-12 col-md-5 text-right  paging-display" style="display: contents;">
+                <label class="canhtren" *ngIf="page==1&&(page*pageSize)<collectionSize && perfumes?.length!=0">Hiển thị: 1 - {{page*pageSize}} trên
                     {{collectionSize}} sản phẩm</label>
-                <label *ngIf="page!=1&&(page*pageSize)<collectionSize && perfumes?.length!=0">Hiển thị: {{((page-1)*pageSize)+1}} -
+                <label class="canhtren"*ngIf="page!=1&&(page*pageSize)<collectionSize && perfumes?.length!=0">Hiển thị: {{((page-1)*pageSize)+1}} -
                     {{page*pageSize}} trên
                     {{collectionSize}} sản phẩm</label>
-                <label *ngIf="page!=1&&(page*pageSize)>collectionSize && perfumes?.length!=0">Hiển thị: {{((page-1)*pageSize)+1}} -
+                <label class="canhtren"*ngIf="page!=1&&(page*pageSize)>=collectionSize && perfumes?.length!=0">Hiển thị: {{((page-1)*pageSize)+1}} -
                     {{collectionSize}} trên
                     {{collectionSize}} sản phẩm</label>
-                <label *ngIf="page==1&&(page*pageSize)>collectionSize && perfumes?.length!=0">Hiển thị: 1 - {{collectionSize}} trên
+                <label class="canhtren"*ngIf="page==1&&(page*pageSize)>collectionSize && perfumes?.length!=0">Hiển thị: 1 - {{collectionSize}} trên
                     {{collectionSize}} sản phẩm</label>
-                <label *ngIf="page==1&&perfumes?.length==0">Hiển thị: 0 sản phẩm</label>
+                <label class="canhtren"*ngIf="perfumes?.length==0">Hiển thị: 0 sản phẩm</label>
             </div>
             <div class="col-sm-12 col-md-3">
                 <div class="dataTables_paginate paging_simple_numbers" style="padding: 0;">
