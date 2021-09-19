@@ -32,7 +32,6 @@ import java.util.Map;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/api/")
@@ -128,8 +127,7 @@ public class PerfumeController {
                 map.put("result", p);
                 map.put("status", true);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             map.put("status", 500);
         }
         return map;
@@ -152,8 +150,7 @@ public class PerfumeController {
                 map.put("result", p);
                 map.put("status", true);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             map.put("status", 500);
         }
         return map;
@@ -174,10 +171,9 @@ public class PerfumeController {
                 return map;
             } else {
                 map.put("result", p);
-    map.put("status", 200);
+                map.put("status", 200);
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             map.put("status", 500);
     }
     return map;

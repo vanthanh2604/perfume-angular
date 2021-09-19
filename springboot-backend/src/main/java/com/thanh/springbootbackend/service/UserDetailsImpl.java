@@ -25,19 +25,15 @@ import java.util.stream.Collectors;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID=1L;
-
     private  Long id;
     private String username;
     @JsonIgnore
     private String password;
-
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id,String username,String password,
-                           Collection<? extends GrantedAuthority>authorities){
+    public UserDetailsImpl(Long id, String username, String password, Collection<? extends GrantedAuthority>authorities){
         this.id=id;
         this.username=username;
         this.password=password;

@@ -98,7 +98,7 @@ public class OutController {
                 map.put("status", 200);
                 map.put("output", out);
             }
-        }catch (Exception e){
+        }catch (Exception e) {
             map.put("status", 500);
         }
         return map;

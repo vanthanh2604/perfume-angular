@@ -3,7 +3,7 @@ import {FormGroup, NgForm} from "@angular/forms";
 
 export abstract class FormCanDeactivate extends ComponentCanDeactivate{
 
- abstract get form():FormGroup;
+ abstract get form1():FormGroup;
  
  canDeactivate():boolean{
     //  if(this.form.value)
@@ -12,7 +12,7 @@ export abstract class FormCanDeactivate extends ComponentCanDeactivate{
     //  }else{
     //     return false;
     //  }
-    console.log("this.form.dirty"+!this.form.dirty)
-      return !this.form.dirty
+
+      return !this.form1.dirty
   }
 }

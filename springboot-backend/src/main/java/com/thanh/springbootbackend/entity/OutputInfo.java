@@ -17,7 +17,6 @@ import javax.validation.constraints.NotBlank;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Entity
 public class OutputInfo {
     @Id

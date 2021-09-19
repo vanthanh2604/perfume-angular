@@ -26,7 +26,6 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Service
 public class InputInfoService implements IInputInfoService {
     @Autowired
@@ -38,6 +37,8 @@ public class InputInfoService implements IInputInfoService {
 
     /**
      * get all input info by id input
+     * @param id
+     * @return
      */
     @Override
     public List<InputInfo> getALlInputInfoByIdInput(Long id) {

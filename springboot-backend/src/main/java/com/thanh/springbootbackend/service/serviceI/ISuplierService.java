@@ -17,8 +17,18 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public interface ISuplierService {
+
+    /**
+     * get all supplier
+     * @return
+     */
     List<Suplier> getAllsupliers();
+
+    /**
+     * get supplier by id
+     * @param id
+     * @return
+     */
     Suplier getById(Long id);
 }

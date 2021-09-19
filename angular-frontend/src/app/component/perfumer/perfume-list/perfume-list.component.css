@@ -16,3 +16,27 @@
   :host >>> .tooltip-inner {
     text-align: left;
   }
+
+  .display{
+    justify-content: center;
+    display: flex;
+  }
+  .display-button{
+    display: flex; 
+    justify-content: space-between;
+    width: 130px;
+  }
+  .display-container{
+    display: flex; 
+    justify-content: space-between;
+    position: relative; padding: 0px 10px ;
+  }
+  .select{
+    margin-left: 7px; width: 60px
+  }
+  .paging{
+    display: flex; padding-right: 10px;
+  }
+  .paging-display{
+    padding: 10px 0px 0px 0px;
+  }

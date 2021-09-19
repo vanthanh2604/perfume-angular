@@ -19,8 +19,19 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public interface IInputInfoService {
+
+    /**
+     * get aLl input info by id input
+     * @param id
+     * @return
+     */
     List<InputInfo> getALlInputInfoByIdInput(Long id);
+
+    /**
+     * add input info
+     * @param infoDto
+     * @param input
+     */
     void addInputInfo(List<InputInfoModel> infoDto, Input input);
 }

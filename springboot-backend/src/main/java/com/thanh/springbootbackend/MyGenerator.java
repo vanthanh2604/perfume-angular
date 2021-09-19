@@ -19,9 +19,16 @@ import org.hibernate.id.IdentifierGenerator;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public class MyGenerator implements IdentifierGenerator {
     private String prefix = "SP";
+
+    /**
+     * auto increment code
+     * @param session
+     * @param obj
+     * @return
+     * @throws HibernateException
+     */
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object obj) throws HibernateException {
         String query = "SELECT p.id FROM Perfume p";

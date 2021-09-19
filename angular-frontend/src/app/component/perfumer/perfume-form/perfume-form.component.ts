@@ -17,7 +17,7 @@ import { FormCanDeactivate } from 'src/app/deactivate/form-can-deactivate/form-c
   styleUrls: ['./perfume-form.component.css']
 })
 export class PerfumeFormComponent extends FormCanDeactivate implements OnInit {
-  get form(): FormGroup {
+  get form1(): FormGroup {
     return this.infoform;
   }
   perfumeDto = new PerfumeDto();

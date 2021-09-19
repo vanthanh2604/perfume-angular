@@ -19,9 +19,25 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public interface IOutputInfoService {
+
+    /**
+     * get all output info by id input
+     * @param id
+     * @return
+     */
     List<OutputInfo> getALlOutputInfoByIdInput(Long id);
+
+    /**
+     * save output info
+     * @param outputInfo
+     */
     void saveOuputInfo(OutputInfo outputInfo);
+
+    /**
+     * add output info
+     * @param list
+     * @param output
+     */
     void addOutputInfo(List<InputInfoModel> list, Output output);
 }

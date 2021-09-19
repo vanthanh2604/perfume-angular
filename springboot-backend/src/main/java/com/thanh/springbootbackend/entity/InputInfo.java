@@ -16,7 +16,6 @@ import javax.validation.constraints.Min;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Entity
 public class InputInfo {
     @Id

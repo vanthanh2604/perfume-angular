@@ -21,7 +21,6 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Service
 public class OriginService implements IOriginService {
     @Autowired
@@ -29,6 +28,7 @@ public class OriginService implements IOriginService {
 
     /**
      * get all origin
+     * @return
      */
     @Override
     public List<Origin> getAll() {

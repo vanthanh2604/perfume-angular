@@ -39,6 +39,7 @@ public class OutputInfoService implements IOutputInfoService {
     /**
      * get all output detail by id output
      * @param id
+     * @return
      */
     @Override
     public List<OutputInfo> getALlOutputInfoByIdInput(Long id) {

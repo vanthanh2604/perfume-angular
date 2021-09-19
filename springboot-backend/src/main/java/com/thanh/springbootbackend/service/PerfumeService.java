@@ -27,7 +27,6 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Service
 public class PerfumeService implements IPerfumeService {
     @Autowired
@@ -36,25 +35,49 @@ public class PerfumeService implements IPerfumeService {
     private BrandRepository brandRepository;
     @Autowired
     private OriginRepository originRepository;
+
+    /**
+     * get all perfume
+     * @return
+     */
     @Override
     public List<Perfume> getAllPerfume() {
         return perfumeRepositorry.findAllDesc();
     }
 
+    /**
+     * get all perfume stocking
+     * @return
+     */
     @Override
     public List<Perfume> getAllPerfumeStocking() {
         return perfumeRepositorry.findAllPerfumeStocking();
     }
 
+    /**
+     * get perfume by id and flag
+     * @param id
+     * @return
+     */
     @Override
     public Perfume getPerfumeByIdFlag(String id) {
         return perfumeRepositorry.findPerfumeByIdAndFlag(id);
     }
+
+    /**
+     * get perfume by name
+     * @param name
+     * @return
+     */
     @Override
     public Perfume getPerfumeByName(String name) {
         return perfumeRepositorry.findByName(name);
     }
 
+    /**
+     * create perfume
+     * @param perfumeModel
+     */
     @Override
     public void createPerfume(PerfumeModel perfumeModel) {
         Perfume per = perfumeModel.getPerfume();
@@ -67,6 +90,11 @@ public class PerfumeService implements IPerfumeService {
         perfumeRepositorry.save(per);
     }
 
+    /**
+     * update perfume
+     * @param id
+     * @param perfumeModel
+     */
     @Override
     public void updatePerfume(String id, PerfumeModel perfumeModel) {
         Perfume perfume= perfumeRepositorry.findPerfumeByIdAndFlag(id);
@@ -79,6 +107,10 @@ public class PerfumeService implements IPerfumeService {
         perfumeRepositorry.save(perfume);
     }
 
+    /**
+     * delete perfume by id
+     * @param id
+     */
     @Override
     public void deletePerfume(String id) {
         Perfume perfume=perfumeRepositorry.findPerfumeByIdAndFlag(id);

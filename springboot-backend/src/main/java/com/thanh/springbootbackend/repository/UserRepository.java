@@ -18,10 +18,20 @@ import java.util.Optional;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Repository
 public interface UserRepository extends CrudRepository<User,Long> {
+
+    /**
+     * find by username
+     * @param username
+     * @return
+     */
     Optional<User> findByUsername(String username);
 
+    /**
+     * exists by username
+     * @param username
+     * @return
+     */
     Boolean existsByUsername(String username);
 }

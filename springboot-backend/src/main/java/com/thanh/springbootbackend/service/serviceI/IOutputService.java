@@ -18,10 +18,31 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public interface IOutputService {
+
+    /**
+     * get all output
+     * @return
+     */
     List<Output>getAllOutput();
+
+    /**
+     * get by id output
+     * @param id
+     * @return
+     */
     Output getById(Long id);
+
+    /**
+     * create output
+     * @param outputModel
+     * @return
+     */
     Output createOutput(OutputModel outputModel);
+
+    /**
+     * get by output last
+     * @return
+     */
     Output getByOpCuoi();
 }

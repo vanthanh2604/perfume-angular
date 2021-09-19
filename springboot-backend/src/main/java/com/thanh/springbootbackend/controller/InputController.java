@@ -4,14 +4,12 @@ import com.thanh.springbootbackend.model.InputInfoModel;
 import com.thanh.springbootbackend.entity.Input;
 import com.thanh.springbootbackend.entity.InputInfo;
 import com.thanh.springbootbackend.entity.Suplier;
-import com.thanh.springbootbackend.service.PerfumeService;
 import com.thanh.springbootbackend.service.serviceI.IInputInfoService;
 import com.thanh.springbootbackend.service.serviceI.IInputService;
 import com.thanh.springbootbackend.service.serviceI.ISuplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.sql.SQLException;
 import java.util.*;
 

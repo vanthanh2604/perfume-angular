@@ -13,7 +13,6 @@ export class AutoFocusDirectiveDirective {
     },100);
   }
 
-
   @HostListener('submit')
   onFormSubmit() {
     const invalidControl = this.el.nativeElement.querySelector('.ng-invalid');

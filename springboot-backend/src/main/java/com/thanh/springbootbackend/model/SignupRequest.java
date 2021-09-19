@@ -15,7 +15,6 @@ import java.util.Set;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public class SignupRequest {
     private String username;
     private String password;

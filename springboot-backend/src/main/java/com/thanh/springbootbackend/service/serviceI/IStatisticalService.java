@@ -16,11 +16,23 @@ import java.util.Map;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public interface IStatisticalService {
-    //Doanh thu theo sản phẩm đã bán
+
+    /**
+     * revenue by perfume
+     * @return
+     */
     Map<String, Object> revenueByPerfume();
-    //Doanh thu theo tháng
+
+    /**
+     * revenue by month
+     * @return
+     */
     Map<String, Object> revenueByMonth();
+
+    /**
+     * inventory statistical
+     * @return
+     */
     Map<String,Object> inventoryStatistical();
 }

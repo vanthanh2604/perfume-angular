@@ -13,7 +13,6 @@ package com.thanh.springbootbackend.model;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public class InputInfoModel {
     private String id;
     private int amount;

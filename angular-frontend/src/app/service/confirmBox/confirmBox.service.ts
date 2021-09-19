@@ -54,4 +54,15 @@ export class ConfirmBoxSevice {
         });
         return confirmBox
     }
+
+    confirmBoxWarning(){
+        const confirmBox = new ConfirmBoxInitializer();
+        confirmBox.setTitle('Nếu bạn chuyển hướng thì sẽ mất dữ liệu vừa nhập!');
+        confirmBox.setMessage('Bạn có muốn tiếp tục?');
+        confirmBox.setButtonLabels('Có', 'Không');
+        confirmBox.setConfig({
+            LayoutType: DialogLayoutDisplay.WARNING // SUCCESS | INFO | NONE | DANGER | WARNING
+        });
+        return confirmBox
+    }
 }

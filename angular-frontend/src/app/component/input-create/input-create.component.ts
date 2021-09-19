@@ -9,13 +9,17 @@ import { PerfumeService } from 'src/app/service/perfume-service/perfume.service'
 import { ToastService } from 'src/app/service/toast-service/toast-service';
 import { ValidateService } from '../validate-message/validate.service';
 import { Message } from 'src/app/service/message/message.service';
+import { FormCanDeactivate } from 'src/app/deactivate/form-can-deactivate/form-can-deactivate';
 
 @Component({
   selector: 'app-input-create',
   templateUrl: './input-create.component.html',
   styleUrls: ['./input-create.component.css']
 })
-export class InputCreateComponent implements OnInit {
+export class InputCreateComponent extends FormCanDeactivate implements OnInit {
+  get form1(): FormGroup {
+    return this.form
+  }
   supliers: Suplier[]
   suplierId: number
   @ViewChild('input') input: ElementRef;
@@ -30,6 +34,7 @@ export class InputCreateComponent implements OnInit {
     private inputService: InputService,
     private router: Router,
     private fb: FormBuilder) {
+    super();
     this.form = this.fb.group({
       perfume_name: ['', [Validators.required]],
       price: ['', [Validators.required, ValidateService.numberValidator]],

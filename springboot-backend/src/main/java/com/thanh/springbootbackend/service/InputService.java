@@ -25,7 +25,6 @@ import java.util.Optional;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Service
 public class InputService implements IInputService {
     @Autowired
@@ -35,6 +34,7 @@ public class InputService implements IInputService {
 
     /**
      * get all input
+     * @return
      */
     @Override
     public List<Input> getALlInput() {
@@ -44,6 +44,7 @@ public class InputService implements IInputService {
     /**
      * get input by id
      * @param id
+     * @return
      */
     @Override
     public Input getById(Long id) {
@@ -52,6 +53,8 @@ public class InputService implements IInputService {
 
     /**
      * get all suppliers
+     * @param suplierId
+     * @return
      */
     @Override
     public Input createInput(Long suplierId) {
@@ -66,6 +69,7 @@ public class InputService implements IInputService {
 
     /**
      * get input last
+     * @return
      */
     @Override
     public Input getInputCuoi() {

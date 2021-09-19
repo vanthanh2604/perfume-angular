@@ -20,7 +20,6 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Repository
 public interface InputRepository extends CrudRepository<Input,Long> {
 

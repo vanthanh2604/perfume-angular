@@ -1,12 +1,10 @@
 package com.thanh.springbootbackend.service;
 
-import com.thanh.springbootbackend.model.RevenuePerfumeModel;
 import com.thanh.springbootbackend.repository.InputInfoRepository;
 import com.thanh.springbootbackend.repository.OutInfoRepository;
 import com.thanh.springbootbackend.service.serviceI.IStatisticalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,14 +23,17 @@ import java.util.Map;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Service
 public class StatisticalService implements IStatisticalService {
     @Autowired
     private OutInfoRepository outInfoRepository;
     @Autowired
     private InputInfoRepository inputInfoRepository;
-    // Doanh thu, lợi nhuận theo sản phẩm đã bán
+
+    /**
+     * revenue by perfume
+     * @return
+     */
     @Override
     public Map<String, Object> revenueByPerfume() {
         Map<String, Object> map=new HashMap<>();
@@ -45,7 +46,11 @@ public class StatisticalService implements IStatisticalService {
         }
         return map;
     }
-    // theo tháng
+
+    /**
+     * revenue by month
+     * @return
+     */
     @Override
     public Map<String, Object> revenueByMonth() {
         Map<String, Object> map=new HashMap<>();
@@ -59,6 +64,10 @@ public class StatisticalService implements IStatisticalService {
         return map;
     }
 
+    /**
+     * inventory statistical
+     * @return
+     */
     @Override
     public Map<String, Object> inventoryStatistical() {
         Map<String, Object>map=new HashMap<>();
@@ -68,7 +77,7 @@ public class StatisticalService implements IStatisticalService {
             list.add(outInfoRepository.sumByAmount());
             map.put("result",list);
             map.put("status",200);
-        }catch (Exception e){
+        }catch (Exception e) {
             map.put("status",500);
         }
         return map;

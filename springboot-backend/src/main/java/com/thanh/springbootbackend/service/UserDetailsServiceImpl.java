@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired

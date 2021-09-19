@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmBoxInitializer } from '@costlydeveloper/ngx-awesome-popup';
 import { ConfirmBoxService } from '@costlydeveloper/ngx-awesome-popup/ngx-awesome-popup/types/confirm-box/core/confirm-box-service';
@@ -16,6 +16,7 @@ import { ConfirmBoxSevice } from 'src/app/service/confirmBox/confirmBox.service'
   styleUrls: ['./inputs.component.css']
 })
 export class InputsComponent implements OnInit {
+  @ViewChild('input') input: ElementRef;
   inputs: Input[]
   inputss: Input[]
   outputs: Output[]
@@ -139,5 +140,10 @@ export class InputsComponent implements OnInit {
         })
       }
     })
+  }
+  onKey(event: any) {
+    if (event.key === 'Tab') {
+      this.input.nativeElement.focus();
+    }
   }
 }

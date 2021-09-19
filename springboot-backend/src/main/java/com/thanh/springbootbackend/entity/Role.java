@@ -17,7 +17,6 @@ import javax.persistence.*;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Entity
 @Table(name = "role")
 public class Role {

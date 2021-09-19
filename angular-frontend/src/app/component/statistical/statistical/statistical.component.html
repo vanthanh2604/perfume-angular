@@ -72,50 +72,53 @@
         </div>
         <hr>
         <div class="col-sm-12 col-md-12">
-            <div class="row">
+            <div class="row display-container">
                 <div class="col-sm-12 col-md-4">
                     <label>Hiển thị</label>
-                    <select style="margin-left: 7px; width: 60px" [(ngModel)]="pageSize" (change)="chang($event)">
-                        <option selected [ngValue]="5">5</option>
-                        <option [ngValue]="10">10</option>
-                        <option [ngValue]="15">15</option>
+                    <select class="select" [(ngModel)]="pageSize" (change)="chang($event)">
+                        <option [value]="6">6</option>
+                        <option [value]="8">8</option>
+                        <option [value]="10">10</option>
                     </select>
                 </div>
-                <div class="col-sm-12 col-md-5 text-right canhtren">
-                    <label *ngIf="page==1&&(page*pageSize)<collectionSize">Hiển thị: 1 - {{page*pageSize}} trên
-                        {{collectionSize}} sản phẩm</label>
-                    <label *ngIf="page!=1&&(page*pageSize)<collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
-                        {{page*pageSize}} trên
-                        {{collectionSize}} sản phẩm</label>
-                    <label *ngIf="page!=1&&(page*pageSize)>collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
-                        {{collectionSize}} trên
-                        {{collectionSize}} sản phẩm</label>
-                    <label *ngIf="page==1&&(page*pageSize)>collectionSize">Hiển thị: 1 - {{collectionSize}} trên
-                        {{collectionSize}} sản phẩm</label>
-                </div>
-                <div class="col-sm-12 col-md-3 float-right">
-                    <div class="dataTables_paginate paging_simple_numbers float-right" style="padding: 0;">
-                        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize"
-                            [boundaryLinks]="true">
-                            <ng-template ngbPaginationPages let-page let-pages="pages">
-                                <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
-                                    <div class="form-group d-flex flex-nowrap px-2">
-                                        <label id="paginationInputLabel" for="paginationInput"
-                                            class="col-form-label mr-2 ml-1">Trang</label>
-                                        <input #i type="text" inputmode="numeric" pattern="[0-9]*"
-                                            class="form-control custom-pages-input" id="paginationInput" [value]="page"
-                                            (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
-                                            (input)="formatInput($any($event).target)"
-                                            aria-labelledby="paginationInputLabel paginationDescription"
-                                            style="width: 2.5rem" />
-                                        <span id="paginationDescription" class="col-form-label text-nowrap px-2">
-                                            / {{pages.length}}</span>
-                                    </div>
-                                </li>
-                            </ng-template>
-                        </ngb-pagination>
+                <div class="paging">
+                    <div class="col-sm-12 col-md-5 text-right canhtren paging-display">
+                        <label *ngIf="page==1&&(page*pageSize)<collectionSize">Hiển thị: 1 - {{page*pageSize}} trên
+                            {{collectionSize}} sản phẩm</label>
+                        <label *ngIf="page!=1&&(page*pageSize)<collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
+                            {{page*pageSize}} trên
+                            {{collectionSize}} sản phẩm</label>
+                        <label *ngIf="page!=1&&(page*pageSize)>collectionSize">Hiển thị: {{((page-1)*pageSize)+1}} -
+                            {{collectionSize}} trên
+                            {{collectionSize}} sản phẩm</label>
+                        <label *ngIf="page==1&&(page*pageSize)>collectionSize">Hiển thị: 1 - {{collectionSize}} trên
+                            {{collectionSize}} sản phẩm</label>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
+                        <div class="dataTables_paginate paging_simple_numbers" style="padding: 0;">
+                            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="collectionSize"
+                                [boundaryLinks]="true">
+                                <ng-template ngbPaginationPages let-page let-pages="pages">
+                                    <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+                                        <div class="form-group d-flex flex-nowrap px-2">
+                                            <label id="paginationInputLabel" for="paginationInput"
+                                                class="col-form-label mr-2 ml-1">Trang</label>
+                                            <input  #i type="text" inputmode="numeric"
+                                                pattern="[0-9]*" class="form-control custom-pages-input" id="paginationInput"
+                                                [value]="page" (keyup.enter)="selectPage(i.value)" (blur)="selectPage(i.value)"
+                                                (input)="formatInput($any($event).target)"
+                                                aria-labelledby="paginationInputLabel paginationDescription"
+                                                style="width: 2.5rem" />
+                                            <span id="paginationDescription" class="col-form-label text-nowrap px-2">
+                                                / {{pages.length}}</span>
+                                        </div>
+                                    </li>
+                                </ng-template>
+                            </ngb-pagination>
+                        </div>
                     </div>
                 </div>
+                
             </div>
         </div>
 

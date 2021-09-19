@@ -15,7 +15,6 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public class OutputModel {
     private String customerName;
     private String phone;

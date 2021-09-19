@@ -17,7 +17,6 @@ import javax.validation.Valid;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public class PerfumeModel {
     @Valid
     private Perfume perfume;

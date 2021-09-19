@@ -6,7 +6,6 @@ import com.thanh.springbootbackend.repository.OutputRepository;
 import com.thanh.springbootbackend.service.serviceI.IOutputService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +22,6 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Service
 public class OutputService implements IOutputService {
     @Autowired
@@ -31,6 +29,7 @@ public class OutputService implements IOutputService {
 
     /**
      * get all output
+     * @return
      */
     @Override
     public List<Output> getAllOutput() {
@@ -40,6 +39,7 @@ public class OutputService implements IOutputService {
     /**
      * get output by id
      * @param id
+     * @return
      */
     @Override
     public Output getById(Long id) {
@@ -49,6 +49,7 @@ public class OutputService implements IOutputService {
     /**
      * create output
      * @param outputModel
+     * @return
      */
     @Override
     public Output createOutput(OutputModel outputModel) {
@@ -63,6 +64,7 @@ public class OutputService implements IOutputService {
 
     /**
      * get output last
+     * @return
      */
     @Override
     public Output getByOpCuoi() {

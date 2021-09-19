@@ -17,8 +17,17 @@ import com.thanh.springbootbackend.entity.Brand;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 public interface IBrandService {
+    /**
+     * get all brand
+     * @return
+     */
     List<Brand> getAllBrand();
+
+    /**
+     * get brand by id
+     * @param id
+     * @return
+     */
     Brand getBrandById(long id);
 }

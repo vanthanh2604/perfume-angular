@@ -10,19 +10,24 @@ import { ValidateService } from '../validate-message/validate.service';
 import { Message } from 'src/app/service/message/message.service';
 import { ConfirmBoxSevice } from 'src/app/service/confirmBox/confirmBox.service';
 import { Router } from '@angular/router';
+import { FormCanDeactivate } from 'src/app/deactivate/form-can-deactivate/form-can-deactivate';
 
 @Component({
   selector: 'app-output-create',
   templateUrl: './output-create.component.html',
   styleUrls: ['./output-create.component.css']
 })
-export class OutputCreateComponent implements OnInit {
+export class OutputCreateComponent extends FormCanDeactivate implements OnInit {
+  get form1(): FormGroup {
+    return this.formCustomer
+  }
+  
   perfumes: Perfume[]
   perfume: Perfume
   list: Array<Perfume> = []
   output: Output;
   form: FormGroup
-  formCustomer: any
+  formCustomer: FormGroup
   total = 0;
   amount=0
   @ViewChild('input') input: ElementRef;
@@ -34,7 +39,7 @@ export class OutputCreateComponent implements OnInit {
     private fb: FormBuilder,
     private confirmBoxSevice: ConfirmBoxSevice
   ) {
-
+    super();
   }
   ngOnInit(): void {
     this.form = this.fb.group({

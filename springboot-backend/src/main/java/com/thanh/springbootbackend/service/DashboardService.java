@@ -32,6 +32,7 @@ public class DashboardService implements IDashboardService {
 
     /**
      * sum total output
+     * @return
      */
     @Override
     public Double sumTotalOutput() {
@@ -40,6 +41,7 @@ public class DashboardService implements IDashboardService {
 
     /**
      * count perfume output
+     * @return
      */
     @Override
     public int countPerfumeOutput() {
@@ -48,6 +50,7 @@ public class DashboardService implements IDashboardService {
 
     /**
      * count output
+     * @return
      */
     @Override
     public int countOutput() {
@@ -56,6 +59,7 @@ public class DashboardService implements IDashboardService {
 
     /**
      * profit
+     * @return
      */
     @Override
     public double profit() {

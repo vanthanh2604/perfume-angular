@@ -20,7 +20,6 @@ import java.util.List;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Entity
 public class Suplier {
     @Id

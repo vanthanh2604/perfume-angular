@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
  *  -----------------------------------------------------------------------
  *   01-09-2021         ThanhNV80            Create
  */
-
 @Repository
 public interface BrandRepository extends CrudRepository<Brand, Long> {
 }
